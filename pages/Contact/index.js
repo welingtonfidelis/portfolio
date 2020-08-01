@@ -1,44 +1,73 @@
 import { useState } from 'react';
-import api from '../../services/api';
+import sendMail from '../../services/sendMail';
 import { LinkedIn, YouTube, GitHub } from '@material-ui/icons'
 import { CircularProgress } from '@material-ui/core';
 
 import Menu from '../../components/Menu';
+import Alert from '../../components/Alert';
 
 export default function About() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [load, setLoad] = useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
+    const [textAlert, setTextAlert] = useState('');
+    const [severity, setSeverity] = useState('');
+
+    const mailTo = "welingtonfidelis@gmail.com";
 
     async function handleSubmit(event) {
         event.preventDefault();
 
         setLoad(true);
-        const body = {
-            "mailFrom": email,
-            "mailTo": "welingtonfidelis@gmail.com",
-            "message": message,
-            "subject": `${name}, ${email}`
-        }
 
-        const { data } = await api.post(`/sendmail/sendgrid`, body);
+        try {
+            const data = await sendMail(email, mailTo, message, `Contato profissional - ${name}, ${email}`);
+    
+            if (data.status) {
+                const msg = `Olá <strong>${name}</strong>. <br/>` +
+                    `Este email é apenas uma confirmação de que recebi sua mensagem. <br/>` +
+                    `Logo entrarei em contato.`;
+    
+                sendMail(mailTo, email, msg, 'Email recebido');
+    
+                setSeverity('success');
+                setTextAlert('Mensagem enviada com sucesso.');
+                setOpenAlert(true);
 
-        if (data.status) {
-            setName('');
-            setEmail('');
-            setMessage('');
+                setName('');
+                setEmail('');
+                setMessage('');
+            }
+            else errorSendMail();
+
+        } catch (error) {
+            console.log(error);
+            errorSendMail();
         }
 
         setLoad(false);
     }
 
+    const errorSendMail = () => {
+        setSeverity('error');
+        setTextAlert('Sinto muito. Houve um erro ao enviar sua mensagem.');
+        setOpenAlert(true);
+    }
 
     return (
         <>
             <Menu page="contact" />
 
             <content id="content-contact">
+                <Alert 
+                    open={openAlert} 
+                    close={setOpenAlert} 
+                    text={textAlert} 
+                    severity={severity}
+                />
+
                 <div className="content-mail">
                     <strong>Vamos conversar</strong>
 
