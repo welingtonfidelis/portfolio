@@ -1,6 +1,7 @@
 import ReactStars from 'react-rating-stars-component';
 import Link from 'next/link';
 
+import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 
 export default function About() {
@@ -18,6 +19,7 @@ export default function About() {
     ]
     return (
         <>
+            <Header />
             <Menu page="about" />
             <content id="content-about">
                 <div id="card">
@@ -29,11 +31,11 @@ export default function About() {
                     <div className="about-text">
                         Bacharel em Ciência da Computação, atuo como programador desde 2019.
                         <br />
-                        Apaixonado por tecnologia, sou um desenvolvedor full-stack web e mobile 
+                        Apaixonado por tecnologia, sou um desenvolvedor full-stack web e mobile
                         sempre interessado em aprender, compartilhar e ajudar a construir
                         algo incrível.
                         <br />
-                        Tem uma ideia legal? <Link href="/Contact"><strong> Me chama </strong></Link> 
+                        Tem uma ideia legal? <Link href="/Contact"><strong> Me chama </strong></Link>
                         e vamos fazer acontecer juntos.
                     </div>
                 </div>
@@ -46,11 +48,12 @@ export default function About() {
                                     <strong>{el.name}</strong>
                                     <ReactStars
                                         count={5}
-                                        size={35}
+                                        size={36}
                                         value={el.rating}
                                         isHalf={true}
                                         edit={false}
                                         activeColor="#0094A8"
+                                        color="#293749"
                                         emptyIcon={<i className="far fa-star"></i>}
                                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                                         fullIcon={<i className="fa fa-star"></i>}

@@ -3,6 +3,7 @@ import sendMail from '../../services/sendMail';
 import { LinkedIn, YouTube, GitHub } from '@material-ui/icons'
 import { CircularProgress } from '@material-ui/core';
 
+import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import Alert from '../../components/Alert';
 
@@ -24,14 +25,14 @@ export default function About() {
 
         try {
             const data = await sendMail(email, mailTo, message, `Contato profissional - ${name}, ${email}`);
-    
+
             if (data.status) {
                 const msg = `Olá <strong>${name}</strong>. <br/>` +
                     `Este email é apenas uma confirmação de que recebi sua mensagem. <br/>` +
                     `Logo entrarei em contato.`;
-    
+
                 sendMail(mailTo, email, msg, 'Email recebido');
-    
+
                 setSeverity('success');
                 setTextAlert('Mensagem enviada com sucesso.');
                 setOpenAlert(true);
@@ -58,13 +59,14 @@ export default function About() {
 
     return (
         <>
+            <Header />
             <Menu page="contact" />
 
             <content id="content-contact">
-                <Alert 
-                    open={openAlert} 
-                    close={setOpenAlert} 
-                    text={textAlert} 
+                <Alert
+                    open={openAlert}
+                    close={setOpenAlert}
+                    text={textAlert}
                     severity={severity}
                 />
 

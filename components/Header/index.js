@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <Head>
             <title>Welington Fidelis</title>
-            <link rel="icon" href="/favicon_teste.ico" />
+            <link rel="icon" href="/favicon.ico" />
         </Head>
     )
 }

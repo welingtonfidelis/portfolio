@@ -23,7 +23,11 @@ input, textarea {
     color: #fff;
     max-width: calc(90vw - 5px);
     min-width: calc(90vw - 5px);
-    max-height: calc(40vh);
+    max-height: 40vh;
+}
+
+textarea {
+    min-height: 20vh;
 }
 
 .content-mail {
@@ -55,7 +59,7 @@ footer {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 55px;
+    height: 70px;
 }
 
 #content-contact footer svg {
