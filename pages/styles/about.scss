@@ -27,7 +27,6 @@
 
 #content-about img {
     width: 170px;
-    border: 1px solid #0094A8;
     border-radius: 4px;
 }
 
@@ -47,6 +46,11 @@
     font-size: 18px;
 }
 
+.about-skill span {
+    -webkit-animation: roll-in-right .8s ease-out both;
+    animation: roll-in-right .8s ease-out both;
+}
+
 .about-text {
     font-size: 16px;
     text-align: center;
@@ -55,11 +59,11 @@
 }
 
 .about-text strong {
-    color: #0094A8;
-    transition: .5s;
+    color: #0094a8;
+    transition: 0.5s;
 }
 
 .about-text strong:hover {
     cursor: pointer;
-    filter: brightness(.8);
+    filter: brightness(0.8);
 }

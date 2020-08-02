@@ -79,4 +79,10 @@ footer {
     font-size: 30px;
     text-align: center;
     color: #0094A8;
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) .5s both;
+}
+
+.content-mail form {
+    animation: swing-in-top-fwd 1s;
+
 }
