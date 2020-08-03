@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GitHub, Language } from '@material-ui/icons';
+import AwesomeSlider from 'react-awesome-slider';
 
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
@@ -10,7 +11,7 @@ import data from '../../data/data.json';
 export default function About() {
     const { repositories } = data;
 
-    const [urlTmp, setUrlTmp] = useState('');
+    const [urlTmp, setUrlTmp] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
     const showDetail = (url) => {
@@ -31,9 +32,9 @@ export default function About() {
                         return (
                             <div key={index} className="card-repository">
                                 <strong>{el.name}</strong>
-                                <img 
-                                    src={el.image_url} 
-                                    alt={`${el.name}_image`} 
+                                <img
+                                    src={el.image_url[0]}
+                                    alt={`${el.name}_image`}
                                     onClick={() => showDetail(el.image_url)}
                                 />
 
@@ -67,8 +68,18 @@ export default function About() {
             <div className="portfolio-separator"></div>
 
             <Modal open={showModal} close={setShowModal}>
-                <div className="portfolio-modal">
-                    <img src={urlTmp} alt="url_app"/>
+                <div className="portfolio-content-carousel ">
+                    <AwesomeSlider>
+                        {
+                            urlTmp.map((el, index) => {
+                                return (
+                                    <div className="portfolio-modal" key={index}>
+                                        <img src={el} alt="url_app" />
+                                    </div>
+                                )
+                            })
+                        }
+                    </AwesomeSlider>
                 </div>
             </Modal>
         </>

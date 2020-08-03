@@ -43,6 +43,12 @@
 .card-repository img {
     width: 45vw;
     max-height: 42vh;
+    transition: .5s;
+}
+
+.card-repository img:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0.5em #293749;
 }
 
 .card-repository span {
@@ -76,6 +82,11 @@
 }
 
 .portfolio-modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.portfolio-content-carousel {
     width: 90vw;
-    height: 90vh;
+    max-height: 90vh;
 }

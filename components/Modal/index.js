@@ -35,7 +35,7 @@ export default function ModalFunc({ children, open, close }) {
             <Fade in={open}>
                 <div id="content-modal">
                     <div onClick={() => close(false)}>
-                        <HighlightOff color="#fff"/>
+                        <HighlightOff/>
                     </div>
 
                     {children}

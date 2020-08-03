@@ -38,3 +38,27 @@ content {
   background: #fff;
   padding-top: 50px;
 }
+
+.awssld__content {
+  background: none !important;
+}
+
+.awssld__bullets--active {
+  background: #0094A8 !important;
+}
+
+.awssld__controls__arrow-right::before {
+  background: #0094A8 !important;
+}
+
+.awssld__controls__arrow-right::after {
+  background: #0094A8 !important;
+}
+
+.awssld__controls__arrow-left::before {
+  background: #0094A8 !important;
+}
+
+.awssld__controls__arrow-left::after {
+  background: #0094A8 !important;
+}
