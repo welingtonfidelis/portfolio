@@ -4,19 +4,11 @@ import Link from 'next/link';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 
+import data from '../../data/data.json';
+
 export default function About() {
-    const skills = [
-        { name: 'Javascript', rating: 4 },
-        { name: 'Node.js', rating: 4 },
-        { name: 'HTML', rating: 3.5 },
-        { name: 'React', rating: 3 },
-        { name: 'React Native', rating: 3 },
-        { name: 'Ionic', rating: 3 },
-        { name: 'Android', rating: 2 },
-        { name: 'Angular', rating: 2.5 },
-        { name: 'SQL', rating: 4 },
-        { name: 'NOSQL', rating: 3.5 }
-    ]
+    const { skills } = data;
+
     return (
         <>
             <Header />

@@ -14,12 +14,12 @@
 .button-home {
     border: 1px solid #0094a8;
     padding: 10px;
-    margin-top: 30px;
+    margin: 30px 1px 0 1px;
     border-radius: 4px;
     font-size: 25px;
     transition: 0.5s;
     -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
-	animation: heartbeat 1.5s ease-in-out infinite both;
+    animation: heartbeat 1.5s ease-in-out infinite both;
 }
 
 .button-home:hover {

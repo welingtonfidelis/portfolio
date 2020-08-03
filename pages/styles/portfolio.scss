@@ -1,7 +1,81 @@
 #content-portfolio {
+    display: grid;
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+    justify-content: center;
+    grid-template-columns: auto auto;
+}
+
+.portfolio-separator {
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    #content-portfolio {
+        grid-template-columns: auto !important;
+    }
+
+    .card-repository img {
+        width: 85vw !important;
+    }
+
+    .card-repository span {
+        width: 85vw !important;
+    }
+}
+
+.card-repository {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    height: calc(100vh - 45px);
+    padding: 5px;
+    box-shadow: 0 0 0.5em #293749;
+    -webkit-animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.card-repository strong {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.card-repository img {
+    width: 45vw;
+    max-height: 42vh;
+}
+
+.card-repository span {
+    height: 120px;
+    overflow: auto;
+    width: 45vw;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.icon-repository {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.icon-repository svg {
+    font-size: 35px;
+    margin: 0 18px 0 18px;
+    color: #293749;
+    transition: .5s;
+}
+
+.icon-repository svg:hover {
+    cursor: pointer;
+    color: #0094A8;
+    filter: brightness(.8);
+}
+
+.portfolio-modal img {
+    width: 90vw;
+    height: 90vh;
 }

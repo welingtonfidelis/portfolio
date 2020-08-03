@@ -1,4 +1,5 @@
 import './styles/animation.scss';
+import './styles/modal.scss';
 import './styles/global.scss';
 import './styles/home.scss';
 import './styles/menu.scss';

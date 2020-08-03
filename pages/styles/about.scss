@@ -28,6 +28,8 @@
 #content-about img {
     width: 170px;
     border-radius: 4px;
+	-webkit-animation: shadow-drop-center 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	animation: shadow-drop-center 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .about-skill {
@@ -36,7 +38,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     // flex: 1;
     margin: 5px 0 5px 0;
     width: 80%;
@@ -47,8 +49,8 @@
 }
 
 .about-skill span {
-    -webkit-animation: roll-in-right .8s ease-out both;
-    animation: roll-in-right .8s ease-out both;
+    -webkit-animation: roll-in-right 1s ease-out both;
+    animation: roll-in-right 1s ease-out both;
 }
 
 .about-text {
