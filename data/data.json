@@ -76,19 +76,11 @@
             ]
         },
         {
-            "name": "api-bubblesort",
-            "description": "Projeto construído em Node.js para ordenação de array de números através do método Bubble Sort.",
-            "html_url": "https://github.com/welingtonfidelis/api-bubblesort",
-            "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
-            ]
-        },
-        {
             "name": "api-busca-vagaomnibees",
             "description": "Este projeto construído através de Node.js, tem objetivo de trabalhar como um Crawler, buscando informações sobre quartos de hotéis em respostas de páginas web, mais específicamente, páginas retornadas por buscas no hotel Le Canton (https://lecanton.com.br/).",
             "html_url": "https://github.com/welingtonfidelis/api-busca-vagaomnibees",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/api-busca-vagaomnibees.png"
             ]
         },
         {
@@ -105,7 +97,25 @@
             "description": "Projeto com objetivo de funcionar como um mini OLX, com cadastro cliente e de comércio e seus produtos. A parte web (voltada ao comerciante) foi construída com React, o aplicativo construído em React Native (voltado ao cliente) e o back-end em Node.js, Graphql e banco Postgres.",
             "html_url": "https://github.com/welingtonfidelis/compreAqui",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_1.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_2.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_3.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_4.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_5.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_6.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_7.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_8.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_9.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_10.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_11.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_12.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_19.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_13.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_14.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_15.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_16.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_17.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/compre_aqui_18.png"
             ]
         },
         {
@@ -140,7 +150,7 @@
             "description": "Projeto teste para aplicação de docker-compose na criação de containers de bancos de dados, documentação através do mkdocs e um servidor em nodejs.",
             "html_url": "https://github.com/welingtonfidelis/docker-compose-test",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/docker_1.jpg"
             ]
         },
         {
@@ -148,7 +158,15 @@
             "description": "Trabalho de conclusão de curso na minha graduação em Ciência da Computação, este aplicativo nativo para Android foi construído em Java. O objetivo é listar pontos de interesse no IFSULDEMINAS, Campus Passos, possibilitando o usuário localizar um local e sua própria posição em um mapa virtual.",
             "html_url": "https://github.com/welingtonfidelis/LocEdu",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_1.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_2.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_3.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_4.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_5.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_6.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_7.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_8.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/tcc_9.png"
             ]
         },
         {
@@ -156,7 +174,14 @@
             "description": "Primeira Next Level Week da equipe RocketSeat. Nele foram aplicadas as tecnologias de NodeJs, Reactjs, React Native e Sqlite3 para construção de uma aplicação chamada Ecoleta, que tem objetivo de permitir que empresas responsáveis por coleta de resíduos específicos se cadastrem na plataforma e sejam encontradas e contatadas por usuários através do aplicativo.",
             "html_url": "https://github.com/welingtonfidelis/NextLevelWeek_1",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_1.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_2.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_3.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_4.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_5.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_6.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_7.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/nlw1_8.png"
             ]
         },
         {
@@ -164,7 +189,7 @@
             "description": "Portifólio pessoal construído com Next.js e API REST em Node.js",
             "html_url": "https://github.com/welingtonfidelis/portfolio",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/portfolio_1.png"
             ]
         },
         {
@@ -191,7 +216,11 @@
             "description": "Esse projeto é resultado da semana omnistack 11 da equipe RocketSeat. Nele foram aplicadas as tecnologias NodeJs, Reactjs, React Native e Sqlite3 para construção de uma aplicação chamada Be The Hero, que tem objetivo de dar as Ongs uma maneira de compartilhar à população, ocorrências que precisem de auxílio financeiro, para que qualquer pessoa disposta a ajudar com alguma valor possa entrar em contato.",
             "html_url": "https://github.com/welingtonfidelis/semana_omnistack_11",
             "image_url": [
-                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11.png"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11_1.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11_2.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11_3.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_11_4.png"
             ]
         },
         {
@@ -199,7 +228,12 @@
             "description": "Esse projeto é resultado da semana omnistack 9 da equipe RocketSeat. Nele foram aplicadas as tecnologias NodeJs, Reactjs, React Native e MongoDB para construção de uma aplicação que visa oferecer formas de encontrar e compartilhar locais para coworking entre empresas e profissionais.",
             "html_url": "https://github.com/welingtonfidelis/semana_omnistack_9",
             "image_url": [
-                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9.png"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9_1.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9_2.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9_3.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9_4.png",
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/semana_omnistack_9_5.png"
             ]
         },
         {
@@ -207,7 +241,7 @@
             "description": "Conjunto de métodos/ferramentas genéricas pra uso geral para atender a necessidade de outras APIs ou sistemas/aplicativos web, como disparo de email.",
             "html_url": "https://github.com/welingtonfidelis/utilsApi",
             "image_url": [
-                "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+                "https://welingtonfidelisportfolio.s3-sa-east-1.amazonaws.com/repositories/api_utils_1.png"
             ]
         }
     ]

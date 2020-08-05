@@ -22,6 +22,10 @@
     .card-repository span {
         width: 85vw !important;
     }
+
+    .portfolio-content-carousel {
+        width: 90vw !important;
+    }
 }
 
 .card-repository {
@@ -83,10 +87,10 @@
 
 .portfolio-modal img {
     max-width: 90vw;
-    max-height: 90vh;
+    max-height: 75vh;
 }
 
 .portfolio-content-carousel {
-    width: 90vw;
+    width: 75vw;
     max-height: 90vh;
 }
