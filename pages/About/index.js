@@ -1,5 +1,6 @@
 import ReactStars from 'react-rating-stars-component';
 import Link from 'next/link';
+import { Smartphone, DesktopWindows, CloudQueue } from '@material-ui/icons';
 
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
@@ -14,7 +15,7 @@ export default function About() {
             <Header />
             <Menu page="about" />
             <content id="content-about">
-                <div id="card">
+                <div id="about-card-left">
                     <img
                         src="https://avatars3.githubusercontent.com/u/26190703?v=4"
                         alt="photo_url"
@@ -32,28 +33,72 @@ export default function About() {
                     </div>
                 </div>
 
-                <div id="card">
-                    {
-                        skills.map((el, index) => {
-                            return (
-                                <div className="about-skill" key={index}>
-                                    <strong>{el.name}</strong>
-                                    <ReactStars
-                                        count={5}
-                                        size={36}
-                                        value={el.rating}
-                                        isHalf={true}
-                                        edit={false}
-                                        activeColor="#0094A8"
-                                        color="#293749"
-                                        emptyIcon={<i className="far fa-star"></i>}
-                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                        fullIcon={<i className="fa fa-star"></i>}
-                                    />
-                                </div>
-                            )
-                        })
-                    }
+                <div id="about-card-right">
+                    <fieldset className="float-card">
+                        <legend><DesktopWindows /></legend>
+
+                        {skills.front.map((el, index) => (
+                            <div key={index} className="float-card-content">
+                                <strong>{el.name}</strong>
+                                <ReactStars
+                                    count={5}
+                                    size={36}
+                                    value={el.rating}
+                                    isHalf={true}
+                                    edit={false}
+                                    activeColor="#0094A8"
+                                    color="#293749"
+                                    emptyIcon={<i className="far fa-star"></i>}
+                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                    fullIcon={<i className="fa fa-star"></i>}
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
+
+                    <fieldset className="float-card">
+                        <legend><Smartphone /></legend>
+
+                        {skills.mobile.map((el, index) => (
+                            <div key={index}  className="float-card-content">
+                                <strong>{el.name}</strong>
+                                <ReactStars
+                                    count={5}
+                                    size={36}
+                                    value={el.rating}
+                                    isHalf={true}
+                                    edit={false}
+                                    activeColor="#0094A8"
+                                    color="#293749"
+                                    emptyIcon={<i className="far fa-star"></i>}
+                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                    fullIcon={<i className="fa fa-star"></i>}
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
+
+                    <fieldset className="float-card">
+                        <legend><CloudQueue /></legend>
+
+                        {skills.back.map((el, index) => (
+                            <div key={index}  className="float-card-content">
+                                <strong>{el.name}</strong>
+                                <ReactStars
+                                    count={5}
+                                    size={36}
+                                    value={el.rating}
+                                    isHalf={true}
+                                    edit={false}
+                                    activeColor="#0094A8"
+                                    color="#293749"
+                                    emptyIcon={<i className="far fa-star"></i>}
+                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                    fullIcon={<i className="fa fa-star"></i>}
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
                 </div>
             </content>
         </>

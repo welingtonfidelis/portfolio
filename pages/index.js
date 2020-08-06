@@ -10,7 +10,7 @@ export default function Home() {
       <main>
         <div>
           Olá, eu sou <strong>Welington Fidelis</strong>. <br />
-          Sou desenvolvedor Full-stack Web e Mobile.
+          Sou desenvolvedor Full-stack <strong>Web</strong> e <strong>Mobile</strong>.
         </div>
 
         <Link href="/About">
