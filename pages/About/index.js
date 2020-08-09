@@ -35,8 +35,6 @@ export default function About() {
 
                 <div id="about-card-right">
                     <fieldset className="float-card">
-                        <legend><DesktopWindows /></legend>
-
                         {skills.front.map((el, index) => (
                             <div key={index} className="float-card-content">
                                 <strong>{el.name}</strong>
@@ -57,8 +55,6 @@ export default function About() {
                     </fieldset>
 
                     <fieldset className="float-card">
-                        <legend><Smartphone /></legend>
-
                         {skills.mobile.map((el, index) => (
                             <div key={index}  className="float-card-content">
                                 <strong>{el.name}</strong>
@@ -79,8 +75,6 @@ export default function About() {
                     </fieldset>
 
                     <fieldset className="float-card">
-                        <legend><CloudQueue /></legend>
-
                         {skills.back.map((el, index) => (
                             <div key={index}  className="float-card-content">
                                 <strong>{el.name}</strong>
