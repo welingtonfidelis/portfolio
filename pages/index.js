@@ -1,8 +1,24 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
+import api from '../services/api';
 
 import Header from '../components/Header';
 
 export default function Home() {
+  useEffect(() => {
+    getIp();
+  }, []);
+
+  const getIp = async () => {
+    const { data } = await api.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=json');
+
+    if(data) saveVisit(data.ip);
+  }
+
+  const saveVisit = (ip) => {
+    api.post('/visits', { ip });
+  }
+
   return (
     <div className="home">
       <Header />
