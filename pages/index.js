@@ -11,7 +11,12 @@ export default function Home() {
 
   const getIp = async () => {
     const { data } = await api.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=json');
-    console.log('!!!=>',  data.ip );
+
+    if(data) saveVisit(data.ip);
+  }
+
+  const saveVisit = (ip) => {
+    api.post('/visits', { ip });
   }
 
   return (
