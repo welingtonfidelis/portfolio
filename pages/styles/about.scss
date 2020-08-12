@@ -34,8 +34,9 @@
     border-radius: 4px;
     padding: 10px;
     width: 90%;
-    -webkit-animation: slide-in-bck-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s both;
-    animation: slide-in-bck-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s both;
+    border: none;
+    -webkit-animation: slide-in-bottom 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-bottom 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 #about-card-right .float-card-content {
@@ -68,10 +69,6 @@
     filter: brightness(0.8);
 }
 
-#about-card-right .float-card {
-    border: none;
-}
-
 .float-card svg {
     color: #1b242f;
 }
@@ -94,5 +91,6 @@
 
     #about-card-right .float-card {
         width: 100%;
+        margin-bottom: 10px;
     }
 }
