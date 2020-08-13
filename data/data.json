@@ -38,6 +38,10 @@
                 "rating": 4
             },
             {
+                "name": "PHP",
+                "rating": 3
+            },
+            {
                 "name": "SQL",
                 "rating": 3.5
             },
