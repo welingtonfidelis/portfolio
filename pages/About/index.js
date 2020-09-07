@@ -40,7 +40,7 @@ export default function About() {
                                 <strong>{el.name}</strong>
                                 <ReactStars
                                     count={5}
-                                    size={36}
+                                    size={32}
                                     value={el.rating}
                                     isHalf={true}
                                     edit={false}
@@ -60,7 +60,7 @@ export default function About() {
                                 <strong>{el.name}</strong>
                                 <ReactStars
                                     count={5}
-                                    size={36}
+                                    size={32}
                                     value={el.rating}
                                     isHalf={true}
                                     edit={false}
@@ -80,7 +80,7 @@ export default function About() {
                                 <strong>{el.name}</strong>
                                 <ReactStars
                                     count={5}
-                                    size={36}
+                                    size={32}
                                     value={el.rating}
                                     isHalf={true}
                                     edit={false}
