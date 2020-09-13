@@ -1,20 +1,20 @@
-const db = require('../../database/connection');;
+const db = require('../../database/connection');
 
 export default async (req, res) => {
-    const trx = await db.transaction();
-
     try {
         const { ip } = req.body;
-    
-        await trx('visits').insert({ ip, date: new Date() });
 
-        await trx.commit();
-        
-        res.json({ ok: true });
+        const collection = (await db.connectMongo()).collection('visits');
+    
+        await collection.insertOne({
+            ip, visitAt: new Date()
+        });
+    
+        return res.status(201).json({ ok: true });
 
     } catch (error) {
-        await trx.rollback();
-        
+        console.log(error);
+
         const code = error.code || 500;
         const message = error.message || 'Internal server error';
 
