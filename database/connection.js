@@ -1,15 +1,25 @@
-const knex = require('knex');
+import { MongoClient } from 'mongodb';
+import url from 'url';
 
-let conn = null;
+let cachedDb = null;
 
-if(!conn) {
-    const db = knex({
-        client: 'postgresql',
-        connection: process.env.POSTGRES_URL,
-        searchPath: 'public',
-    });
+const methods = {
+    async connectMongo() {
+        if (cachedDb) return cachedDb;
 
-    conn = db;
+        const uri = process.env.MONGODB_URI;
+        const client = await MongoClient.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+
+        const dbName = url.parse(uri).pathname.substr(1);
+        const db = client.db(dbName);
+
+        cachedDb = db;
+
+        return db
+    }
 }
 
-module.exports = conn;
+module.exports = methods;
