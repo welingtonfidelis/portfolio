@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import sendMail from '../../services/sendMail';
 import { LinkedIn, YouTube, GitHub } from '@material-ui/icons'
 import { CircularProgress } from '@material-ui/core';
+import axios from 'axios';
 
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
@@ -24,14 +24,24 @@ export default function About() {
         setLoad(true);
 
         try {
-            const data = await sendMail(email, mailTo, message, `Contato profissional - ${name}, ${email}`);
+            const { data } = await axios.post('../api/mailSender', {
+                from: email, 
+                to: mailTo, 
+                subject: `Contato profissional - ${name}`, 
+                html: message
+            });
 
-            if (data.status) {
+            if (data.ok) {
                 const msg = `Olá <strong>${name}</strong>. <br/>` +
                     `Este email é apenas uma confirmação de que recebi sua mensagem. <br/>` +
                     `Logo entrarei em contato.`;
 
-                sendMail(mailTo, email, msg, 'Email recebido');
+                axios.post('../api/mailSender', {
+                    from: mailTo, 
+                    to: email, 
+                    subject: 'Email recebido', 
+                    html: msg
+                });
 
                 setSeverity('success');
                 setTextAlert('Mensagem enviada com sucesso.');
