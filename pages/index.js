@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
-import api from '../services/api';
+import axios from 'axios';
 
 import Header from '../components/Header';
 
@@ -10,13 +10,9 @@ export default function Home() {
   }, []);
 
   const getIp = async () => {
-    const { data } = await api.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=json');
+    const { data } = await axios.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=json');
 
-    if(data) saveVisit(data.ip);
-  }
-
-  const saveVisit = (ip) => {
-    api.post('/visits', { ip });
+    if(data) axios.post('../api/saveVisit', { ip: data.ip });
   }
 
   return (
