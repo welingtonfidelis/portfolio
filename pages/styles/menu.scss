@@ -1,0 +1,48 @@
+
+#menu {
+    background: #1B242F;
+    padding: 12px;
+    color: #fff;
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    top: 0px;
+    z-index: 999;
+}
+
+#menu ul {
+    list-style:none;
+    list-style: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+}
+
+#menu ul li { 
+    display: inline; 
+    margin: 0 5px 0 5px;
+    transition: 0.5s;
+}
+
+#menu ul li {
+    cursor: pointer;
+    filter: brightness(.8);
+}
+
+#menu .option-list {
+    flex: 1;
+}
+
+#menu .login-icon {
+    transition: color .5s;
+}
+
+#menu .login-icon svg{
+    font-size: 28px !important;
+}
+
+#menu .login-icon:hover {
+    color: #0094A8;
+    cursor: pointer;
+}

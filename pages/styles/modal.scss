@@ -1,0 +1,14 @@
+#content-modal svg {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 30px;
+    transition: .5s;
+}
+
+#content-modal svg:hover {
+    cursor: pointer;
+    color: #0094a8;
+    filter: brightness(0.8);
+}

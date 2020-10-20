@@ -1,0 +1,29 @@
+
+#menu-admin {
+    background: #1B242F;
+    padding: 12px;
+    color: #fff;
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    top: 0px;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#menu-admin .button {
+    display: flex;
+    align-items: center;
+    transition: color .5s;
+}
+
+#menu-admin .button:hover {
+    cursor: pointer;
+    color: #0094A8;
+}
+
+#menu-admin .button strong {
+    margin: 0 3px;
+}

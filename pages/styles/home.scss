@@ -1,0 +1,29 @@
+.home {
+    background: #293749;
+    background-image: linear-gradient(270deg,#293749,#374961,#293749);
+    background-size: 600% 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+}
+
+.home strong {
+    color: #0094a8;
+}
+
+.button-home {
+    border: 1px solid #0094a8;
+    padding: 10px;
+    margin: 30px 1px 0 1px;
+    border-radius: 4px;
+    font-size: 25px;
+    transition: 0.5s;
+    -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+    animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+.button-home:hover {
+    cursor: pointer;
+    background-color: #0094a8;
+    filter: brightness(0.8);
+}

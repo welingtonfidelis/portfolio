@@ -1,0 +1,88 @@
+#content-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.card-mail {
+    margin: 10px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    align-items: flex-end;
+}
+
+.card-mail input, .card-mail textarea {
+    font-size: 20px;
+    background-color: #1b242f;
+    border: 1px solid #fff; 
+    padding: 10px;
+    color: #fff;
+    max-width: calc(90vw - 5px);
+    min-width: calc(90vw - 5px);
+    max-height: 40vh;
+}
+
+textarea {
+    min-height: 20vh;
+}
+
+.content-mail {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button-contact {
+    border: 1px solid #0094A8;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    border-radius: 4px;
+    font-size: 25px;
+    transition: 0.5s;
+}
+
+.button-contact:hover {
+    cursor: pointer;
+    background-color: #0094A8;
+    filter: brightness(.8);
+}
+
+footer {
+    background: #1b242f;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+}
+
+#content-contact footer svg {
+    font-size: 45px;
+    margin: 0 18px 0 18px;
+    color: #fff;
+    transition: .5s;
+}
+
+#content-contact footer svg:hover {
+    cursor: pointer;
+    color: #0094A8;
+    filter: brightness(.8);
+}
+
+.content-mail strong {
+    font-size: 30px;
+    text-align: center;
+    color: #0094A8;
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) .5s both;
+}
+
+.content-mail form {
+    animation: swing-in-top-fwd 1s;
+
+}
