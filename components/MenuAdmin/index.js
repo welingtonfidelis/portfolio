@@ -3,16 +3,18 @@ import { useRouter } from 'next/router';
 import { ArrowBack, ExitToApp } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MenuAdmin({ dashboard }) {
+import Load from '../Load';
+
+export default function MenuAdmin({ showName, validateToken, loading }) {
     const router = useRouter();
     const store = useSelector(state => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (dashboard) {
+        if (validateToken) {
             const { authorization } = store;
 
-            if (authorization === '') router.back();
+            //if (authorization === '') router.back();
         }
     }, []);
 
@@ -30,22 +32,28 @@ export default function MenuAdmin({ dashboard }) {
 
     return (
         <nav id="menu-admin">
-            {
-                dashboard 
-                ? <div className="button">Seja bem vindo, {store.name}</div>
-                : <div className="button" onClick={handleBack}>
-                    <ArrowBack />
-                    <strong>VOLTAR</strong>
-                </div>
-            }
+            <div className="menu-admin-option">
+                {
+                    showName
+                        ? <div className="button">Seja bem vindo, {store.name}</div>
+                        : <div className="button" onClick={handleBack}>
+                            <ArrowBack />
+                            <strong>VOLTAR</strong>
+                        </div>
+                }
 
-            {
-                dashboard &&
-                <div className="button" onClick={handleExit}>
-                    <strong>SAIR</strong>
-                    <ExitToApp />
-                </div>
-            }
+                {
+                    showName &&
+                    <div className="button" onClick={handleExit}>
+                        <strong>SAIR</strong>
+                        <ExitToApp />
+                    </div>
+                }
+            </div>
+
+            <div className="menu-admin-load">
+                <Load loading={loading} />
+            </div>
         </nav>
     )
 }

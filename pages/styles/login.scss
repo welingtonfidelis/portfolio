@@ -7,15 +7,13 @@
 }
 
 #content-login .container {
-    padding: 10px;
+    padding: 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid #293749;
     border-radius: 4px;
-    height: 60vh;
-    width: 60vw;
 }
 
 .login-user-icon svg {
@@ -40,11 +38,6 @@
 }
 
 @media (max-width: 600px) {
-    #content-login .container {
-        width: 85vw !important;
-        height: 85vh !important;
-    }
-
     .login-input, .login-button, .login-welcome-text {
         width: 60vw !important;
     }

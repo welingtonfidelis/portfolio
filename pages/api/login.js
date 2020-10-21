@@ -6,9 +6,9 @@ export default async (req, res) => {
     try {
         const { user, password: passwordUser } = req.body;
 
-        const User = await db.connectCollection('users');
+        const userModel = await db.connectCollection('users');
 
-        let foundUser = (await User.findOne({ user }));
+        let foundUser = (await userModel.findOne({ user }));
 
         //Garantindo que no primeiro login um usuário admin será inserido
         if (!foundUser && !(await User.countDocuments())) {

@@ -1,11 +1,9 @@
-import React from 'react';
 import { Fade, LinearProgress } from '@material-ui/core'
 
 export default function Load(props) {
   const { loading } = props;
 
   return (
-    <div>
       <Fade
         in={loading}
         style={{
@@ -14,6 +12,5 @@ export default function Load(props) {
       >
         <LinearProgress color="secondary" />
       </Fade>
-    </div>
   )
 }

@@ -62,7 +62,7 @@ export default function Login() {
     return (
         <>
             <Header />
-            <Menu />
+            <Menu loading={loading}/>
             <form id="content-login" onSubmit={handleLogin}>
                 <Alert
                     open={openAlert}

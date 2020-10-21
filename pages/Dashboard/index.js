@@ -1,39 +1,52 @@
-import { useState } from 'react';
-import Link from 'next/link';
-import { AccountCircle } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-
+import { route } from 'next/dist/next-server/server/router';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import Menu from '../../components/MenuAdmin';
-import Input from '../../components/Input';
-import Button from '../../components/ButtonPrimary';
-import Alert from '../../components/Alert';
 
 export default function Login() {
-    const [loading, setLoading] = useState(false);
-    const [alertText, setAlertText] = useState('');
-    const [alertSeverity, setAlertSeverity] = useState('success');
-    const [openAlert, setOpenAlert] = useState(false);
-
     const store = useSelector(state => state);
+    const router = useRouter();
+
+    const optionItems = [
+        { name: 'Habilidades', code: 'skill' }, { name: 'Projetos', code: 'project' }
+    ]
 
     console.log('chegando ---->', store);
+
+    const handleSelectOption = (option) => {
+        switch (option) {
+            case 'skill':
+                console.log(1);
+                router.push('/Skills');
+                break;
+
+            case 'project':
+                console.log(2);
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return (
         <>
             <Header />
-            <Menu dashboard={true}/>
-            <content id="content-login">
-                <Alert
-                    open={openAlert}
-                    close={setOpenAlert}
-                    text={alertText}
-                    severity={alertSeverity}
-                />
-
+            <Menu showName={true} validateToken={true} />
+            <content id="content-dashboard">
                 <div className="container">
-                    <h1>Dashboard</h1>
+                    {
+                        optionItems.map(item => (
+                            <div 
+                                className="option-card" 
+                                key={item.code} 
+                                onClick={() => handleSelectOption(item.code)}
+                            >
+                                {item.name}
+                            </div>
+                        ))
+                    }
                 </div>
             </content>
         </>
