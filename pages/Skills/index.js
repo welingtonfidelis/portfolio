@@ -1,21 +1,32 @@
 import { useEffect, useState } from 'react';
+import ReactStars from 'react-rating-stars-component';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Header from '../../components/Header';
+import Input from '../../components/Input';
 import Menu from '../../components/MenuAdmin';
 import Button from '../../components/ButtonPrimary';
+import ButtonSecondary from '../../components/ButtonSecondary';
 import Alert from '../../components/Alert';
+import Select from '../../components/Select';
+import Modal from '../../components/Modal';
+
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
-    const [alertText, setAlertText] = useState('');
-    const [alertSeverity, setAlertSeverity] = useState('success');
-    const [openAlert, setOpenAlert] = useState(false);
+    const [skills, setSkills] = useState([]);
+    const [alertState, setAlertState] = useState({});
+    const [modalState, setModalState] = useState({});
+    const [formData, setFormaData] = useState({});
+    const [skillEdit, setSkillEdit] = useState();
 
     const store = useSelector(state => state);
-
-    console.log('chegando ---->', store);
+    const category = [
+        { label: 'Front-End', value: 'front' },
+        { label: 'Back-End', value: 'back' },
+        { label: 'Mobile', value: 'mobile' }
+    ]
 
     useEffect(() => {
         getSkills();
@@ -31,13 +42,62 @@ export default function Login() {
             );
 
             console.log('RETORNO', data);
+            const { ok, skills } = data;
+            if (ok) setSkills(skills);
         }
         catch (error) {
             console.log(error);
+            setAlertState({
+                text: 'Houve um problema ao trazer suas habilidades. Por favor, tente novamente.',
+                severity: 'error',
+                open: true,
+                close: setAlertState
+            });
         }
 
         setLoading(false);
     }
+
+    const handleOpenModal = () => {
+        setModalState({
+            open: true,
+            close: setModalState
+        });
+    }
+
+    const handleCloseModal = () => {
+        setModalState({
+            ...modalState,
+            open: false
+        });
+    }
+
+    const handleSaveSkill = async () => {
+        setLoading(true);
+
+        try {
+            setFormaData({ ...formData })
+        }
+        catch (error) {
+            console.log(error);
+            setAlertState({
+                text: 'Houve um problema ao salvar sua habilidade. Por favor, tente novamente.',
+                severity: 'error',
+                open: true,
+                close: setAlertState
+            });
+        }
+
+        setLoading(false);
+    }
+
+    const handleInputChange = (name, value) => {
+        setFormaData({ ...formData, [name]: value });
+    }
+
+    useEffect(() => {
+        console.log('DATA', formData);
+    }, [formData]);
 
     return (
         <>
@@ -45,18 +105,75 @@ export default function Login() {
             <Menu validateToken={true} loading={loading} />
             <content id="content-skills">
                 <Alert
-                    open={openAlert}
-                    close={setOpenAlert}
-                    text={alertText}
-                    severity={alertSeverity}
+                    state={alertState}
                 />
 
+                <Modal state={modalState}>
+                    <div className="skill-modal-new">
+                        {
+                            skillEdit
+                                ? <h1>Editar habilidade</h1>
+                                : <h1>Nova habilidade</h1>
+                        }
+
+                        <Select
+                            placeholder="Escolha uma categoria"
+                            label="Categoria"
+                            options={category}
+                            onChange={e => handleInputChange('category', e.value)}
+                        />
+
+                        <Input
+                            label="Nome"
+                            name="name"
+                            required
+                            onChange={e => handleInputChange('name', e.target.value)}
+                        />
+
+                        <div className="skill-modal-new-rating">
+                            <span>Seu nível nesta habilidade</span>
+                            <ReactStars
+                                count={5}
+                                size={40}
+                                value={formData.rating || 0}
+                                isHalf={true}
+                                onChange={e => handleInputChange('rating', e)}
+                                activeColor="#0094A8"
+                                color="#293749"
+                                emptyIcon={<i className="far fa-star"></i>}
+                                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                fullIcon={<i className="fa fa-star"></i>}
+                            />
+                        </div>
+
+                        <div className="skill-modal-new-buttons">
+                            <div className="skill-modal-button" onClick={handleCloseModal}>
+                                <ButtonSecondary label="Cancelar" loading={loading} />
+                            </div>
+
+                            <div className="skill-modal-button" onClick={handleOpenModal}>
+                                <Button label="Salvar" loading={loading} />
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+
                 <div className="container">
-                    <div className="skills-button-new">
-                        <Button label="Entrar" loading={loading} />
+                    <div className="skills-button-new" onClick={handleOpenModal}>
+                        <Button label="Novo" loading={loading} />
                     </div>
 
-                    <h1>skills</h1>
+                    {
+                        !skills.length
+                            ? <div className="empty-skills-text">
+                                <strong>
+                                    Nenhuma habilidade encontrada. Por favor, cadastre algumas.
+                            </strong>
+                            </div>
+                            : <div className="skills-content">
+                                <h1>temos skills</h1>
+                            </div>
+                    }
                 </div>
             </content>
         </>

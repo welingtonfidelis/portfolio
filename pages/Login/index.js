@@ -12,9 +12,7 @@ import Alert from '../../components/Alert';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
-    const [alertText, setAlertText] = useState('');
-    const [alertSeverity, setAlertSeverity] = useState('success');
-    const [openAlert, setOpenAlert] = useState(false);
+    const [alertState, setAlertState] = useState('');
     const [user, sertUser] = useState('');
     const [password, setPassword] = useState('');
 
@@ -51,9 +49,12 @@ export default function Login() {
         catch (error) {
             console.log(error);
 
-            setAlertText('Erro ao logar. Revise os dados e tente novamente.');
-            setAlertSeverity('error');
-            setOpenAlert(true);
+            setAlertState({
+                text: 'Erro ao logar. Por favor, revise os dados e tente novamente.',
+                severity: 'error',
+                open: true,
+                close: setAlertState
+            });
         }
 
         setLoading(false);
@@ -65,10 +66,7 @@ export default function Login() {
             <Menu loading={loading}/>
             <form id="content-login" onSubmit={handleLogin}>
                 <Alert
-                    open={openAlert}
-                    close={setOpenAlert}
-                    text={alertText}
-                    severity={alertSeverity}
+                    state={alertState}
                 />
 
                 <div className="container">

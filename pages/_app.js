@@ -14,6 +14,7 @@ import './styles/input.scss';
 import './styles/button.scss';
 import './styles/dashboard.scss';
 import './styles/skills.scss';
+import './styles/select.scss';
 import 'react-awesome-slider/dist/styles.css';
 
 import store from '../store';

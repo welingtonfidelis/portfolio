@@ -3,7 +3,7 @@ const authtentication = require('../../services/authentication');
 
 export default async (req, res) => {
     try {
-        authtentication.validateToken(req);
+        // authtentication.validateToken(req);
 
         const skillModel = await db.connectCollection('skills');
 

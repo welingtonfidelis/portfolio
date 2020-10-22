@@ -1,3 +1,14 @@
+#content-modal {
+    width: 92%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 4px;
+}
+
 #content-modal svg {
     position: fixed;
     top: 10px;

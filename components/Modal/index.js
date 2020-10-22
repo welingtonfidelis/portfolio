@@ -16,16 +16,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ModalFunc({ children, open, close }) {
+export default function ModalFunc({ children, state }) {
     const classes = useStyles();
 
+    const { open = false, close } = state;
+
+    const handleClose = () => {
+        close({
+            ...state,
+            open: false
+        })
+    }
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={open}
-            onClose={() => close(false)}
+            onClose={handleClose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -34,13 +42,11 @@ export default function ModalFunc({ children, open, close }) {
         >
             <Fade in={open}>
                 <div id="content-modal">
-                    <div onClick={() => close(false)}>
-                        <HighlightOff/>
+                    <div onClick={handleClose}>
+                        <HighlightOff />
                     </div>
-
                     {children}
                 </div>
-
             </Fade>
         </Modal>
     )

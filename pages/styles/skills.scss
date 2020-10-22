@@ -20,19 +20,48 @@
 .skills-button-new .button-primary-block {
     width: 150px;
 }
-// @media (max-width: 600px) {
-//     #content-dashboard .container {
-//         display: flex !important;
-//         flex-direction: column !important;
-//     }
 
-//     #content-dashboard .container .option-card {
-//         margin: 10px 0;
-//     }
+.empty-skills-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    text-align: center;
+}
 
-//     #content-dashboard .option-card {
-//         height: 60vw !important;
-//         width: 60vw !important;
-//     }
-    
-// }
+.skill-modal-new {
+    width: 50%;
+}
+
+.skill-modal-new h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #293749;
+}
+
+.skill-modal-new-rating {
+    margin-top: 22px;
+}
+
+.skill-modal-new-rating span {
+    font-size: 1rem;
+}
+
+.skill-modal-new-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+}
+
+.skill-modal-new-buttons .skill-modal-button {
+    flex: 1;
+    margin: 0 5px;
+}
+
+@media (max-width: 600px) {
+    .skill-modal-new {
+        width: 85% !important;
+    }
+}

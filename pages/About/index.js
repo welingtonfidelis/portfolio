@@ -1,6 +1,5 @@
 import ReactStars from 'react-rating-stars-component';
 import Link from 'next/link';
-import { Smartphone, DesktopWindows, CloudQueue } from '@material-ui/icons';
 
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
