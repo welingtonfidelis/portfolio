@@ -42,7 +42,7 @@ export default function ModalFunc({ children, state }) {
         >
             <Fade in={open}>
                 <div id="content-modal">
-                    <div onClick={handleClose}>
+                    <div onClick={handleClose} className="content-modal-btn-close">
                         <HighlightOff />
                     </div>
                     {children}

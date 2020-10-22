@@ -72,11 +72,34 @@ export default function Login() {
         });
     }
 
-    const handleSaveSkill = async () => {
+    const handleSaveSkill = async (e) => {
+        e.preventDefault();
+
         setLoading(true);
 
         try {
-            setFormaData({ ...formData })
+            setFormaData({
+                ...formData,
+                category: formData.category || category[0].value,
+                rating: formData.rating || 0
+            });
+
+            const { data } = await axios.post(
+                '../api/createSkill', formData,
+                { headers: { authorization: store.authorization } }
+            );
+
+            const { ok } = data;
+            if (ok) {
+                handleCloseModal();
+
+                setAlertState({
+                    text: 'Sua habilidade foi salva com sucesso!',
+                    severity: 'success',
+                    open: true,
+                    close: setAlertState
+                });
+            }
         }
         catch (error) {
             console.log(error);
@@ -95,10 +118,6 @@ export default function Login() {
         setFormaData({ ...formData, [name]: value });
     }
 
-    useEffect(() => {
-        console.log('DATA', formData);
-    }, [formData]);
-
     return (
         <>
             <Header />
@@ -109,7 +128,7 @@ export default function Login() {
                 />
 
                 <Modal state={modalState}>
-                    <div className="skill-modal-new">
+                    <form className="skill-modal-new" onSubmit={handleSaveSkill}>
                         {
                             skillEdit
                                 ? <h1>Editar habilidade</h1>
@@ -120,6 +139,7 @@ export default function Login() {
                             placeholder="Escolha uma categoria"
                             label="Categoria"
                             options={category}
+                            defaultValue={category[0]}
                             onChange={e => handleInputChange('category', e.value)}
                         />
 
@@ -128,6 +148,7 @@ export default function Login() {
                             name="name"
                             required
                             onChange={e => handleInputChange('name', e.target.value)}
+                            required
                         />
 
                         <div className="skill-modal-new-rating">
@@ -148,14 +169,14 @@ export default function Login() {
 
                         <div className="skill-modal-new-buttons">
                             <div className="skill-modal-button" onClick={handleCloseModal}>
-                                <ButtonSecondary label="Cancelar" loading={loading} />
+                                <ButtonSecondary label="Cancelar" />
                             </div>
 
-                            <div className="skill-modal-button" onClick={handleOpenModal}>
+                            <div className="skill-modal-button">
                                 <Button label="Salvar" loading={loading} />
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </Modal>
 
                 <div className="container">
