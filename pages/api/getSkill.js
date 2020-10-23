@@ -7,7 +7,7 @@ export default async (req, res) => {
 
         const skillModel = await db.connectCollection('skills');
 
-        const skills = await skillModel.find().toArray();
+        const skills = await skillModel.find().sort({'updatedAt': 1}).toArray();
 
         res.json({ ok: true, skills });
     }
@@ -16,12 +16,5 @@ export default async (req, res) => {
         const message = error.message || 'Internal server error';
 
         res.status(code).json({ ok: false, message });
-    }
-}
-
-const createError = (code, message) => {
-    throw {
-        code,
-        message
     }
 }

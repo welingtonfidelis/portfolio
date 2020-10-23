@@ -9,7 +9,9 @@ export default async (req, res) => {
 
         const skillModel = await db.connectCollection('skills');
 
-        const { insertedId: _id} = await skillModel.insertOne({category, name, rating});
+        const { insertedId: _id} = await skillModel.insertOne(
+            { category, name, rating, createdAt: new Date(), updatedAt: new Date() }
+        );
 
         res.json({ ok: true, _id });
     }
@@ -18,12 +20,5 @@ export default async (req, res) => {
         const message = error.message || 'Internal server error';
 
         res.status(code).json({ ok: false, message });
-    }
-}
-
-const createError = (code, message) => {
-    throw {
-        code,
-        message
     }
 }

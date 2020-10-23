@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import ReactStars from 'react-rating-stars-component';
 import { useSelector } from 'react-redux';
+import { Delete, Edit } from '@material-ui/icons';
+import { Grid } from '@material-ui/core';
 import axios from 'axios';
 
 import Header from '../../components/Header';
@@ -11,7 +12,7 @@ import ButtonSecondary from '../../components/ButtonSecondary';
 import Alert from '../../components/Alert';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
-
+import Rating from '../../components/Rating';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
@@ -78,14 +79,14 @@ export default function Login() {
         setLoading(true);
 
         try {
-            setFormaData({
+            const body = {
                 ...formData,
                 category: formData.category || category[0].value,
                 rating: formData.rating || 0
-            });
+            };
 
             const { data } = await axios.post(
-                '../api/createSkill', formData,
+                '../api/createSkill', body,
                 { headers: { authorization: store.authorization } }
             );
 
@@ -139,7 +140,6 @@ export default function Login() {
                             placeholder="Escolha uma categoria"
                             label="Categoria"
                             options={category}
-                            defaultValue={category[0]}
                             onChange={e => handleInputChange('category', e.value)}
                         />
 
@@ -153,49 +153,66 @@ export default function Login() {
 
                         <div className="skill-modal-new-rating">
                             <span>Seu nível nesta habilidade</span>
-                            <ReactStars
-                                count={5}
+                            <Rating
                                 size={40}
                                 value={formData.rating || 0}
-                                isHalf={true}
                                 onChange={e => handleInputChange('rating', e)}
-                                activeColor="#0094A8"
-                                color="#293749"
-                                emptyIcon={<i className="far fa-star"></i>}
-                                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                fullIcon={<i className="fa fa-star"></i>}
                             />
                         </div>
 
                         <div className="skill-modal-new-buttons">
-                            <div className="skill-modal-button" onClick={handleCloseModal}>
-                                <ButtonSecondary label="Cancelar" />
-                            </div>
+                                <div className="skill-modal-button" onClick={handleCloseModal}>
+                                    <ButtonSecondary label="Cancelar" />
+                                </div>
 
-                            <div className="skill-modal-button">
-                                <Button label="Salvar" loading={loading} />
+                                <div className="skill-modal-button">
+                                    <Button label="Salvar" loading={loading} />
+                                </div>
                             </div>
-                        </div>
                     </form>
                 </Modal>
 
-                <div className="container">
-                    <div className="skills-button-new" onClick={handleOpenModal}>
-                        <Button label="Novo" loading={loading} />
-                    </div>
+                    <div className="container">
+                        <div className="skills-button-new" onClick={handleOpenModal}>
+                            <Button label="Novo" loading={loading} />
+                        </div>
 
-                    {
-                        !skills.length
-                            ? <div className="empty-skills-text">
-                                <strong>
-                                    Nenhuma habilidade encontrada. Por favor, cadastre algumas.
+                        {
+                            !skills.length
+                                ? <div className="empty-skills-text">
+                                    <strong>
+                                        Nenhuma habilidade encontrada. Por favor, cadastre algumas.
                             </strong>
-                            </div>
-                            : <div className="skills-content">
-                                <h1>temos skills</h1>
-                            </div>
-                    }
-                </div>
+                                </div>
+                                : <div className="skills-content">
+                                    {skills.map(item => {
+                                        return (
+                                            <div className="skill-item" key={item._id}>
+                                                <strong>{item.name}</strong>
+
+                                                <Rating
+                                                    size={40}
+                                                    value={item.rating}
+                                                    edit={false}
+                                                />
+
+                                                <div className="skill-item-footer">
+                                                    <div>
+                                                        <span>Última atualização</span>
+                                                        <b>{item.updatedAt}</b>
+                                                    </div>
+
+                                                    <div>
+                                                        <Delete />
+                                                        <Edit />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                        }
+                    </div>
             </content>
         </>
     )
