@@ -3,13 +3,21 @@ import {
     DialogTitle, Slide, DialogContentText
 } from '@material-ui/core';
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertConfirm({ title, text, open, close, confirm }) {
-    const handleClose = () => close(false);
+export default function AlertConfirm({ state }) {
+    const {
+        title, text, open = false, close, confirm, id = 0
+    } = state;
+
+    const handleClose = () => {
+        close({
+            ...state,
+            open: false
+        });
+    }
 
     return (
         <Dialog
@@ -20,7 +28,7 @@ export default function AlertConfirm({ title, text, open, close, confirm }) {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
+            <DialogTitle id="alert-dialog-slide-title">{title || text}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     {text}
@@ -32,8 +40,8 @@ export default function AlertConfirm({ title, text, open, close, confirm }) {
                         NÃO
                     </b>
                 </Button>
-                <Button onClick={confirm} color="primary">
-                    <b style={{color: '#F2BB16'}}>
+                <Button onClick={() => confirm(id)} color="primary">
+                    <b style={{color: '#0094A8'}}>
                         SIM
                     </b>
                 </Button>

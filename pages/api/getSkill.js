@@ -1,10 +1,7 @@
 const db = require('../../database/connection');
-const authtentication = require('../../services/authentication');
 
 export default async (req, res) => {
     try {
-        // authtentication.validateToken(req);
-
         const skillModel = await db.connectCollection('skills');
 
         const skills = await skillModel.find().sort({'rating': -1}).toArray();

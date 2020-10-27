@@ -5,7 +5,7 @@ const authtentication = require('../../services/authentication');
 
 export default async (req, res) => {
     try {
-        // authtentication.validateToken(req);
+        authtentication.validateToken(req);
 
         const { category, name, rating } = req.body;
         const { _id } = req.query;

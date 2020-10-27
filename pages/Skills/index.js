@@ -9,6 +9,7 @@ import Menu from '../../components/MenuAdmin';
 import Button from '../../components/ButtonPrimary';
 import ButtonSecondary from '../../components/ButtonSecondary';
 import Alert from '../../components/Alert';
+import AlertConfirm from '../../components/AlertConfirm';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import Rating from '../../components/Rating';
@@ -19,6 +20,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [skills, setSkills] = useState([]);
     const [alertState, setAlertState] = useState({});
+    const [alertStateConfirm, setAlertStateConfirm] = useState({});
     const [modalState, setModalState] = useState({});
     const [formData, setFormData] = useState({});
     const [skillEdit, setSkillEdit] = useState();
@@ -90,7 +92,7 @@ export default function Login() {
             };
 
             const { data } = formData._id
-                ? await axios.post(
+                ? await axios.put(
                     '../api/updateSkill', body,
                     {
                         headers: { authorization: store.authorization },
@@ -130,6 +132,62 @@ export default function Login() {
         setLoading(false);
     }
 
+    const handleDeleteSkill = async (_id) => {
+        setLoading(true);
+
+        try {
+            const { data } = await axios.delete(
+                '../api/deleteSkill',
+                {
+                    headers: { authorization: store.authorization },
+                    params: { _id }
+                }
+            );
+
+            const { ok } = data;
+            if (ok) {
+                setAlertStateConfirm({
+                    ...alertStateConfirm,
+                    open: false
+                });
+
+                getSkills();
+
+                setAlertState({
+                    text: 'Sua habilidade foi excluida com sucesso!',
+                    severity: 'success',
+                    open: true,
+                    close: setAlertState
+                });
+
+                clearFormData();
+                getSkills();
+            }
+        }
+        catch (error) {
+            console.log(error);
+            setAlertState({
+                text: 'Houve um problema ao deletar sua habilidade. Por favor, tente novamente.',
+                severity: 'error',
+                open: true,
+                close: setAlertState
+            });
+        }
+
+        setLoading(false);
+    }
+
+    const handleDeleteSkillConfirm = (_id) => {
+        setAlertStateConfirm({
+            title: 'Deletar uma habilidade',
+            text: 'Deseja realmente deletar esta habilidade?',
+            open: true,
+            close: setAlertStateConfirm,
+            confirm: handleDeleteSkill,
+            id: _id
+        });
+    }
+
     const clearFormData = () => {
         setFormData({});
     }
@@ -152,6 +210,9 @@ export default function Login() {
             <content id="content-skills">
                 <Alert
                     state={alertState}
+                />
+                <AlertConfirm
+                    state={alertStateConfirm}
                 />
 
                 <Modal state={modalState}>
@@ -233,7 +294,7 @@ export default function Login() {
                                                 </div>
 
                                                 <div className="item-right">
-                                                    <Delete />
+                                                    <Delete onClick={() => handleDeleteSkillConfirm(item._id)} />
                                                     <Edit onClick={() => handleEditSkill(item)} />
                                                 </div>
                                             </div>

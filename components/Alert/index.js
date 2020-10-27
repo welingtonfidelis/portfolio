@@ -9,7 +9,7 @@ export default function Alert({ state }) {
         severity = "success", text
     } = state;
 
-    function handleClose() {
+    const handleClose = () => {
         close({
             ...state,
             open: false
