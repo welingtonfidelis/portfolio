@@ -1,3 +1,6 @@
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 import { Provider } from 'react-redux';
 
 import './styles/animation.scss';

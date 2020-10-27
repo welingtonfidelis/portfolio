@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Delete, Edit } from '@material-ui/icons';
-import { Grid } from '@material-ui/core';
 import axios from 'axios';
 
 import Header from '../../components/Header';
@@ -14,12 +13,14 @@ import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import Rating from '../../components/Rating';
 
+import utils from '../../services/utils';
+
 export default function Login() {
     const [loading, setLoading] = useState(false);
     const [skills, setSkills] = useState([]);
     const [alertState, setAlertState] = useState({});
     const [modalState, setModalState] = useState({});
-    const [formData, setFormaData] = useState({});
+    const [formData, setFormData] = useState({});
     const [skillEdit, setSkillEdit] = useState();
 
     const store = useSelector(state => state);
@@ -42,7 +43,6 @@ export default function Login() {
                 { headers: { authorization: store.authorization } }
             );
 
-            console.log('RETORNO', data);
             const { ok, skills } = data;
             if (ok) setSkills(skills);
         }
@@ -59,7 +59,9 @@ export default function Login() {
         setLoading(false);
     }
 
-    const handleOpenModal = () => {
+    const handleOpenModal = (clear) => {
+        if (clear) clearFormData();
+
         setModalState({
             open: true,
             close: setModalState
@@ -80,15 +82,25 @@ export default function Login() {
 
         try {
             const body = {
-                ...formData,
-                category: formData.category || category[0].value,
-                rating: formData.rating || 0
+                category: formData.category
+                    ? (formData.category.value || formData.category)
+                    : category[0].value,
+                rating: formData.rating || 0,
+                name: formData.name || ''
             };
 
-            const { data } = await axios.post(
-                '../api/createSkill', body,
-                { headers: { authorization: store.authorization } }
-            );
+            const { data } = formData._id
+                ? await axios.post(
+                    '../api/updateSkill', body,
+                    {
+                        headers: { authorization: store.authorization },
+                        params: { _id: formData._id }
+                    }
+                )
+                : await axios.post(
+                    '../api/createSkill', body,
+                    { headers: { authorization: store.authorization } }
+                )
 
             const { ok } = data;
             if (ok) {
@@ -100,6 +112,9 @@ export default function Login() {
                     open: true,
                     close: setAlertState
                 });
+
+                clearFormData();
+                getSkills();
             }
         }
         catch (error) {
@@ -115,8 +130,19 @@ export default function Login() {
         setLoading(false);
     }
 
+    const clearFormData = () => {
+        setFormData({});
+    }
+
     const handleInputChange = (name, value) => {
-        setFormaData({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: value });
+    }
+
+    const handleEditSkill = (item) => {
+        const cat = category.find(el => el.value === item.category);
+
+        setFormData({ ...item, category: cat });
+        handleOpenModal();
     }
 
     return (
@@ -140,6 +166,7 @@ export default function Login() {
                             placeholder="Escolha uma categoria"
                             label="Categoria"
                             options={category}
+                            value={formData.category || category[0]}
                             onChange={e => handleInputChange('category', e.value)}
                         />
 
@@ -147,6 +174,7 @@ export default function Login() {
                             label="Nome"
                             name="name"
                             required
+                            value={formData.name || ''}
                             onChange={e => handleInputChange('name', e.target.value)}
                             required
                         />
@@ -161,58 +189,60 @@ export default function Login() {
                         </div>
 
                         <div className="skill-modal-new-buttons">
-                                <div className="skill-modal-button" onClick={handleCloseModal}>
-                                    <ButtonSecondary label="Cancelar" />
-                                </div>
-
-                                <div className="skill-modal-button">
-                                    <Button label="Salvar" loading={loading} />
-                                </div>
+                            <div className="skill-modal-button" onClick={handleCloseModal}>
+                                <ButtonSecondary label="Cancelar" />
                             </div>
+
+                            <div className="skill-modal-button">
+                                <Button label="Salvar" loading={loading} />
+                            </div>
+                        </div>
                     </form>
                 </Modal>
 
-                    <div className="container">
-                        <div className="skills-button-new" onClick={handleOpenModal}>
-                            <Button label="Novo" loading={loading} />
-                        </div>
+                <div className="container">
+                    <div className="skills-button-new" onClick={() => handleOpenModal(true)}>
+                        <Button label="Novo" loading={loading} />
+                    </div>
 
-                        {
-                            !skills.length
-                                ? <div className="empty-skills-text">
-                                    <strong>
-                                        Nenhuma habilidade encontrada. Por favor, cadastre algumas.
+                    {
+                        !skills.length
+                            ? <div className="empty-skills-text">
+                                <strong>
+                                    Nenhuma habilidade encontrada. Por favor, cadastre algumas.
                             </strong>
-                                </div>
-                                : <div className="skills-content">
-                                    {skills.map(item => {
-                                        return (
-                                            <div className="skill-item" key={item._id}>
-                                                <strong>{item.name}</strong>
+                            </div>
+                            : <div className="skills-content">
+                                {skills.map(item => {
+                                    return (
+                                        <div className="skill-item" key={item._id}>
+                                            <strong>{item.name}</strong>
 
-                                                <Rating
-                                                    size={40}
-                                                    value={item.rating}
-                                                    edit={false}
-                                                />
+                                            <Rating
+                                                size={40}
+                                                value={item.rating}
+                                                edit={false}
+                                            />
 
-                                                <div className="skill-item-footer">
-                                                    <div>
-                                                        <span>Última atualização</span>
-                                                        <b>{item.updatedAt}</b>
-                                                    </div>
+                                            <div className="skill-item-footer">
+                                                <div className="item-left">
+                                                    <span>Última atualização</span>
+                                                    <b>
+                                                        {utils.maskDate(new Date(item.updatedAt))}
+                                                    </b>
+                                                </div>
 
-                                                    <div>
-                                                        <Delete />
-                                                        <Edit />
-                                                    </div>
+                                                <div className="item-right">
+                                                    <Delete />
+                                                    <Edit onClick={() => handleEditSkill(item)} />
                                                 </div>
                                             </div>
-                                        )
-                                    })}
-                                </div>
-                        }
-                    </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                    }
+                </div>
             </content>
         </>
     )

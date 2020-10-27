@@ -13,7 +13,7 @@ import Alert from '../../components/Alert';
 export default function Login() {
     const [loading, setLoading] = useState(false);
     const [alertState, setAlertState] = useState('');
-    const [user, sertUser] = useState('');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
@@ -30,9 +30,8 @@ export default function Login() {
                 password
             });
 
-            console.log('retorno', data);
             const { ok, name, authorization } = data;
-
+            
             if (ok) {
                 dispatch({
                     type: 'UPDATE_USER',
@@ -40,6 +39,7 @@ export default function Login() {
                         name, authorization
                     }
                 });
+                console.log('retorno', data);
 
                 router.push('/Dashboard');
                 setLoading(false);
@@ -83,7 +83,7 @@ export default function Login() {
                             label="Usuário" 
                             name="username" 
                             required 
-                            onChange={e => sertUser(e.target.value)}
+                            onChange={e => setUser(e.target.value)}
                         />
 
                         <Input 

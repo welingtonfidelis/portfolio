@@ -11,12 +11,12 @@ export default async (req, res) => {
         let foundUser = (await userModel.findOne({ user }));
 
         //Garantindo que no primeiro login um usuário admin será inserido
-        if (!foundUser && !(await User.countDocuments())) {
+        if (!foundUser && !(await userModel.countDocuments())) {
             const defaultName = process.env.DEFAULT_USER_NAME;
             const defaultUser = process.env.DEFAULT_USER_USER;
             const defaultPassword = process.env.DEFAULT_USER_PASSWORD;
 
-            const { insertedId } = await User.insertOne({
+            const { insertedId } = await userModel.insertOne({
                 name: defaultName,
                 user: defaultUser,
                 password: defaultPassword,
