@@ -39,7 +39,6 @@ export default function Login() {
                         name, authorization
                     }
                 });
-                console.log('retorno', data);
 
                 router.push('/Dashboard');
                 setLoading(false);

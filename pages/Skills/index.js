@@ -23,7 +23,7 @@ export default function Login() {
     const [alertStateConfirm, setAlertStateConfirm] = useState({});
     const [modalState, setModalState] = useState({});
     const [formData, setFormData] = useState({});
-    const [skillEdit, setSkillEdit] = useState();
+    const [skillEdit, setSkillEdit] = useState(false);
 
     const store = useSelector(state => state);
     const category = [
@@ -40,10 +40,7 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const { data } = await axios.get(
-                '../api/getSkill',
-                { headers: { authorization: store.authorization } }
-            );
+            const { data } = await axios.get('../api/getSkill');
 
             const { ok, skills } = data;
             if (ok) setSkills(skills);
@@ -85,7 +82,7 @@ export default function Login() {
         try {
             const body = {
                 category: formData.category
-                    ? (formData.category.value || formData.category)
+                    ? formData.category.value
                     : category[0].value,
                 rating: formData.rating || 0,
                 name: formData.name || ''
@@ -190,6 +187,7 @@ export default function Login() {
 
     const clearFormData = () => {
         setFormData({});
+        setSkillEdit(false);
     }
 
     const handleInputChange = (name, value) => {
@@ -200,6 +198,7 @@ export default function Login() {
         const cat = category.find(el => el.value === item.category);
 
         setFormData({ ...item, category: cat });
+        setSkillEdit(true);
         handleOpenModal();
     }
 
@@ -227,7 +226,7 @@ export default function Login() {
                             placeholder="Escolha uma categoria"
                             label="Categoria"
                             options={category}
-                            value={formData.category || category[0]}
+                            defaultValue={formData.category || category[0]}
                             onChange={e => handleInputChange('category', e.value)}
                         />
 
