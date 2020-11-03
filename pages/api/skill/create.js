@@ -1,5 +1,5 @@
-const db = require('../../database/connection');
-const authtentication = require('../../services/authentication');
+const db = require('../../../database/connection');
+const authtentication = require('../../../services/authentication');
 
 export default async (req, res) => {
     try {

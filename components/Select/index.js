@@ -6,7 +6,6 @@ export default function SelectComponent({ label, options, ...rest }) {
             <span>{label}</span>
 
             <Select
-                id={label}
                 options={options}
                 {...rest}
             />

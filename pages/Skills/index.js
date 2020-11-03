@@ -40,13 +40,14 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const { data } = await axios.get('../api/getSkill');
+            const { data } = await axios.get('../api/skill/get');
 
             const { ok, skills } = data;
             if (ok) setSkills(skills);
         }
         catch (error) {
             console.log(error);
+
             setAlertState({
                 text: 'Houve um problema ao trazer suas habilidades. Por favor, tente novamente.',
                 severity: 'error',
@@ -74,46 +75,65 @@ export default function Login() {
         });
     }
 
+    const validateInput = () => {
+        let isValid = true, text = '';
+        if(!formData.category || formData.category === '') text = 'Escolha uma categoria para sua habilidade.';
+        else if(!formData.name || formData.name === '') text = 'Escolha um nome para sua habilidade.';
+        
+        if(text !== '') {
+            isValid = false;
+
+            setAlertState({
+                text,
+                severity: 'error',
+                open: true,
+                close: setAlertState
+            });
+        }
+        
+        return isValid;
+    }
+
     const handleSaveSkill = async (e) => {
         e.preventDefault();
 
         setLoading(true);
 
         try {
-            const body = {
-                category: formData.category
-                    ? formData.category.value
-                    : category[0].value,
-                rating: formData.rating || 0,
-                name: formData.name || ''
-            };
-
-            const { data } = formData._id
-                ? await axios.put(
-                    '../api/updateSkill', body,
-                    {
-                        headers: { authorization: store.authorization },
-                        params: { _id: formData._id }
-                    }
-                )
-                : await axios.post(
-                    '../api/createSkill', body,
-                    { headers: { authorization: store.authorization } }
-                )
-
-            const { ok } = data;
-            if (ok) {
-                handleCloseModal();
-
-                setAlertState({
-                    text: 'Sua habilidade foi salva com sucesso!',
-                    severity: 'success',
-                    open: true,
-                    close: setAlertState
-                });
-
-                clearFormData();
-                getSkills();
+            if(validateInput()) {
+                const body = {
+                    category: (formData.category.value || formData.category) || category[0].value,
+                    rating: formData.rating || 0,
+                    name: formData.name || ''
+                };
+    
+                const { data } = formData._id
+                    ? await axios.put(
+                        '../api/skill/update', body,
+                        {
+                            headers: { authorization: store.authorization },
+                            params: { _id: formData._id }
+                        }
+                    )
+                    : await axios.post(
+                        '../api/skill/create', body,
+                        { headers: { authorization: store.authorization } }
+                    )
+    
+                const { ok } = data;
+                if (ok) {
+                    handleCloseModal();
+    
+                    setAlertState({
+                        text: 'Sua habilidade foi salva com sucesso!',
+                        severity: 'success',
+                        open: true,
+                        close: setAlertState
+                    });
+    
+                    clearFormData();
+                    getSkills();
+                }
             }
         }
         catch (error) {
@@ -134,7 +154,7 @@ export default function Login() {
 
         try {
             const { data } = await axios.delete(
-                '../api/deleteSkill',
+                '../api/skill/delete',
                 {
                     headers: { authorization: store.authorization },
                     params: { _id }
@@ -215,7 +235,7 @@ export default function Login() {
                 />
 
                 <Modal state={modalState}>
-                    <form className="skill-modal-new" onSubmit={handleSaveSkill}>
+                    <div className="skill-modal-new">
                         {
                             skillEdit
                                 ? <h1>Editar habilidade</h1>
@@ -223,10 +243,11 @@ export default function Login() {
                         }
 
                         <Select
+                            id="select-category"
                             placeholder="Escolha uma categoria"
                             label="Categoria"
                             options={category}
-                            defaultValue={formData.category || category[0]}
+                            defaultValue={formData.category || ''}
                             onChange={e => handleInputChange('category', e.value)}
                         />
 
@@ -254,10 +275,10 @@ export default function Login() {
                             </div>
 
                             <div className="skill-modal-button">
-                                <Button label="Salvar" loading={loading} />
+                                <Button label="Salvar" loading={loading} onClick={handleSaveSkill} />
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </Modal>
 
                 <div className="container">

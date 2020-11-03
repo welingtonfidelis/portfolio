@@ -18,7 +18,7 @@ export default function About() {
         setLoading(true);
 
         try {
-            const { data } = await axios.get('../api/getSkill', { params: { order: 'category' } });
+            const { data } = await axios.get('../api/skill/get', { params: { order: 'category' } });
 
             const { ok, skills } = data;
             if (ok) {
