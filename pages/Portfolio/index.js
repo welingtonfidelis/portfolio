@@ -12,11 +12,15 @@ export default function About() {
     const { repositories } = data;
 
     const [urlTmp, setUrlTmp] = useState([]);
-    const [showModal, setShowModal] = useState(false);
+    const [modalState, setModalState] = useState({});
 
     const showDetail = (url) => {
         setUrlTmp(url);
-        setShowModal(true);
+
+        setModalState({
+            open: true,
+            close: setModalState
+        });
     }
 
     return (
@@ -67,7 +71,7 @@ export default function About() {
 
             <div className="portfolio-separator"></div>
 
-            <Modal open={showModal} close={setShowModal}>
+            <Modal state={modalState}>
                 <div className="portfolio-content-carousel ">
                     <AwesomeSlider>
                         {

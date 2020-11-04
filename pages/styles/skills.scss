@@ -1,0 +1,130 @@
+#content-skills {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#content-skills .container {
+    width: 100%;
+    height: calc(100% - 70px);
+}
+
+.skills-button-new {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+.skills-button-new .button-primary-block {
+    width: 150px;
+}
+
+.empty-skills-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.skill-modal-new {
+    width: 50%;
+}
+
+.skill-modal-new h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #293749;
+}
+
+.skill-modal-new-rating {
+    margin-top: 22px;
+}
+
+.skill-modal-new-rating span {
+    font-size: 1rem;
+}
+
+.skill-modal-new-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+}
+
+.skill-modal-new-buttons .skill-modal-button {
+    flex: 1;
+    margin: 0 5px;
+}
+
+.skills-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.skill-item {
+    background: #fff;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    padding: 10px;
+    flex: 1;
+    margin: 10px;
+}
+
+.skill-item-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #c4c4c4;
+    margin-top: 5px;
+    padding-top: 3px;
+}
+
+.skill-item-footer .item-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-item-footer .item-right svg:first-child {
+   color: #A80000; 
+   cursor: pointer;
+   transition: .5s;
+}  
+
+.skill-item-footer .item-right svg:first-child:hover {
+    color: #700000;
+}
+.skill-item-footer .item-right svg:last-child {
+   color: #0C9900; 
+   cursor: pointer;
+   transition: .5s;
+}  
+
+.skill-item-footer .item-right svg:last-child:hover {
+    color: #075A00;
+}
+@media (max-width: 900px) {
+    .skills-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .skill-modal-new {
+        width: 85% !important;
+    }
+
+    .skill-modal-new-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .skills-content {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}

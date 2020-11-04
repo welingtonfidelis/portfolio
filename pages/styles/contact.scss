@@ -15,10 +15,10 @@
     align-items: flex-end;
 }
 
-input, textarea {
+.card-mail input, .card-mail textarea {
     font-size: 20px;
-    background-color: #1b242f !important;
-    border: 1px solid #fff !important; 
+    background-color: #1b242f;
+    border: 1px solid #fff; 
     padding: 10px;
     color: #fff;
     max-width: calc(90vw - 5px);

@@ -19,6 +19,9 @@ const methods = {
         cachedDb = db;
 
         return db
+    },
+    async connectCollection(collection) {
+        return (await this.connectMongo()).collection(collection);
     }
 }
 

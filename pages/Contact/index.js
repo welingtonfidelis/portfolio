@@ -12,11 +12,7 @@ export default function About() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [load, setLoad] = useState(false);
-    const [openAlert, setOpenAlert] = useState(false);
-    const [textAlert, setTextAlert] = useState('');
-    const [severity, setSeverity] = useState('');
-
-    const mailTo = "welingtonfidelis@gmail.com";
+    const [alertState, setAlertState] = useState('');
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -26,7 +22,6 @@ export default function About() {
         try {
             const { data } = await axios.post('../api/mailSender', {
                 from: email, 
-                to: mailTo, 
                 subject: `Contato profissional - ${name}`, 
                 html: message
             });
@@ -37,15 +32,17 @@ export default function About() {
                     `Logo entrarei em contato.`;
 
                 axios.post('../api/mailSender', {
-                    from: mailTo, 
                     to: email, 
                     subject: 'Email recebido', 
                     html: msg
                 });
 
-                setSeverity('success');
-                setTextAlert('Mensagem enviada com sucesso.');
-                setOpenAlert(true);
+                setAlertState({
+                    text: 'Mensagem enviada com sucesso.',
+                    severity: 'success',
+                    open: true,
+                    close: setAlertState
+                });
 
                 setName('');
                 setEmail('');
@@ -62,9 +59,12 @@ export default function About() {
     }
 
     const errorSendMail = () => {
-        setSeverity('error');
-        setTextAlert('Sinto muito. Houve um erro ao enviar sua mensagem.');
-        setOpenAlert(true);
+        setAlertState({
+            text: 'Sinto muito. Houve um erro ao enviar sua mensagem.',
+            severity: 'error',
+            open: true,
+            close: setAlertState
+        });
     }
 
     return (
@@ -74,10 +74,7 @@ export default function About() {
 
             <content id="content-contact">
                 <Alert
-                    open={openAlert}
-                    close={setOpenAlert}
-                    text={textAlert}
-                    severity={severity}
+                    state={alertState}
                 />
 
                 <div className="content-mail">

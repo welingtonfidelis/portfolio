@@ -1,9 +1,10 @@
 const sgMail = require('@sendgrid/mail');
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const MAIL_DEFAULT = process.env.MAIL_DEFAULT;
 
 export default async (req, res) => {
     try {
-        const { from, to, subject, html, cc = '' } = req.body;
+        const { from = MAIL_DEFAULT, to = MAIL_DEFAULT, subject, html, cc = '' } = req.body;
     
         sgMail.setApiKey(SENDGRID_API_KEY);
         await sgMail.send({

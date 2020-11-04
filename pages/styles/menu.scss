@@ -15,6 +15,8 @@
     list-style: none;
     font-size: 18px;
     text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
 }
 
 #menu ul li { 
@@ -26,4 +28,21 @@
 #menu ul li {
     cursor: pointer;
     filter: brightness(.8);
+}
+
+#menu .option-list {
+    flex: 1;
+}
+
+#menu .login-icon {
+    transition: color .5s;
+}
+
+#menu .login-icon svg{
+    font-size: 28px !important;
+}
+
+#menu .login-icon:hover {
+    color: #0094A8;
+    cursor: pointer;
 }
