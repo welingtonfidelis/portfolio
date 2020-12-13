@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
 
 const db = require('../../../database/connection');
-const authtentication = require('../../../services/authentication');
+const authtentication = require('../services/authentication');
 
 export default async (req, res) => {
     try {

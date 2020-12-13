@@ -12,11 +12,15 @@ const s3 = new AWS.S3({
     region
 });
 
+const acceptablesImgType = ['jpeg', 'png', 'gif']
+
 module.exports = {
     async uploadImage (file, folderName, fileName = null) {
         const base64Data = new Buffer.from(file.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-        // Getting the file type, ie: jpeg, png or gif
         const type = file.split(';')[0].split('/')[1];
+
+        validateTypeFiles(type, acceptablesImgType);
+
         fileName = fileName || `${uuidv4()}.${type}`
 
         const params = {
@@ -36,5 +40,14 @@ module.exports = {
             console.warn('UPLOAD IMAGE FAILED', err);
             throw err;
         });
+    }
+}
+
+const validateTypeFiles = (type, acceptables = []) => {
+    if(!acceptables.includes(type)) {
+        throw {
+            code: 400,
+            message: `${type} is not accept file type. Acceptables: ${acceptables}`
+        }
     }
 }

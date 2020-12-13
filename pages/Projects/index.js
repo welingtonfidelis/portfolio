@@ -47,6 +47,7 @@ export default function Login() {
 
             const { ok, projects } = data;
 
+            console.log('Projects', projects);
             if (ok) setProjects(projects);
         }
         catch (error) {
@@ -327,7 +328,6 @@ export default function Login() {
                             </div>
                             : <div className="skills-content">
                                 {projects.map(item => {
-                                    console.log(item);
                                     return (
                                         <h3>projeto aqui</h3>
                                         // <div className="skill-item" key={item._id}>

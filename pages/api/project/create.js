@@ -1,10 +1,11 @@
 const db = require('../../../database/connection');
-const authtentication = require('../../../services/authentication');
-const upload = require('../../../services/upload');
+const authtentication = require('../services/authentication');
+const upload = require('../services/upload');
+const utils = require('../utils');
 
 export default async (req, res) => {
     try {
-        // authtentication.validateToken(req);
+        authtentication.validateToken(req);
 
         const { name, description, publishedIn, repository, images } = req.body;
         
@@ -16,7 +17,7 @@ export default async (req, res) => {
                 if(uploadedImage) imagesUrl.push(uploadedImage.Location);
             }
         }
-        console.log('===>', name, description, publishedIn, repository, imagesUrl);
+
         const projectModel = await db.connectCollection('projects');
 
         const { insertedId: _id} = await projectModel.insertOne(
@@ -29,11 +30,6 @@ export default async (req, res) => {
         res.json({ ok: true, _id });
     }
     catch (error) {
-        console.log('ERROR ===>', error);
-
-        const code = error.code || 500;
-        const message = error.message || 'Internal server error';
-
-        res.status(code).json({ ok: false, message });
+        utils.errorResponse(res, error);
     }
 }

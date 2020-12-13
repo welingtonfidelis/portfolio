@@ -1,4 +1,5 @@
 const db = require('../../../database/connection');
+const utils = require('../utils');
 
 export default async (req, res) => {
     try {
@@ -10,11 +11,6 @@ export default async (req, res) => {
         res.json({ ok: true, skills });
     }
     catch (error) {
-        console.log('ERROR ===>', error);
-
-        const code = error.code || 500;
-        const message = error.message || 'Internal server error';
-
-        res.status(code).json({ ok: false, message });
+        utils.errorResponse(res, error);
     }
 }
