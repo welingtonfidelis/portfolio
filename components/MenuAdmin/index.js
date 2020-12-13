@@ -14,7 +14,7 @@ export default function MenuAdmin({ showName, validateToken, loading }) {
         if (validateToken) {
             const { authorization } = store;
 
-            if (authorization === '') router.back();
+            // if (authorization === '') router.back();
         }
     }, []);
 

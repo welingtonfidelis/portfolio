@@ -13,7 +13,7 @@ export default async (req, res) => {
         return res.status(201).json({ ok: true });
 
     } catch (error) {
-        console.log(error);
+        console.log('ERROR ===>', error);
 
         const code = error.code || 500;
         const message = error.message || 'Internal server error';

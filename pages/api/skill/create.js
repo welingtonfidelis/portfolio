@@ -16,6 +16,8 @@ export default async (req, res) => {
         res.json({ ok: true, _id });
     }
     catch (error) {
+        console.log('ERROR ===>', error);
+
         const code = error.code || 500;
         const message = error.message || 'Internal server error';
 

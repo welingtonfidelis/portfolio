@@ -4,6 +4,7 @@ const authtentication = require('../../services/authentication');
 
 export default async (req, res) => {
     try {
+        console.log(bcrypt.hashSync('Evolucao1990', 10));
         const { user, password: passwordUser } = req.body;
 
         const userModel = await db.connectCollection('users');
@@ -39,6 +40,8 @@ export default async (req, res) => {
         res.json({ ok: true, name, authorization });
     }
     catch (error) {
+        console.log('ERROR ===>', error);
+
         const code = error.code || 500;
         const message = error.message || 'Internal server error';
 

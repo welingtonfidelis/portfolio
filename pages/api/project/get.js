@@ -2,12 +2,13 @@ const db = require('../../../database/connection');
 
 export default async (req, res) => {
     try {
-        const skillModel = await db.connectCollection('skills');
-        const { order = 'rating', by = -1 } = req.query;
+        const projectModel = await db.connectCollection('projects');
+        // const { order = 'createdAt', by = -1 } = req.query;
 
-        const skills = await skillModel.find().sort({[order]: parseInt(by)}).toArray();
+        const projects = await projectModel.find().toArray()
+        // .sort({[order]: parseInt(by)}).toArray();
 
-        res.json({ ok: true, skills });
+        res.json({ ok: true, projects });
     }
     catch (error) {
         console.log('ERROR ===>', error);
