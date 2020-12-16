@@ -1,15 +1,23 @@
 import { Add, Remove, RemoveCircleOutline } from '@material-ui/icons';
 
-export default function InputComponent({ label, name, files = [], changeFiles, ...rest }) {
+export default function InputComponent({
+    label, name, files = [], onChangeAddFiles, rmFiles = [], onChangeRmFiles, ...rest
+}) {
 
     const handleAddFile = (file) => {
-        console.log(file);
-        changeFiles([...files, file]);
+        onChangeAddFiles([...files, file]);
     }
 
     const handleRmFile = (file) => {
-        const newFiles = files.filter(item => item.name !== file.name);
-        changeFiles(newFiles);
+        if (typeof file === 'string') {
+            const newFiles = files.filter(item => item !== file);
+            onChangeAddFiles(newFiles);
+            onChangeRmFiles([...rmFiles, file]);
+        }
+        else {
+            const newFiles = files.filter(item => item.name !== file.name);
+            onChangeAddFiles(newFiles);
+        }
     }
 
     return (
@@ -20,10 +28,10 @@ export default function InputComponent({ label, name, files = [], changeFiles, .
                 {files.map((item, index) => (
                     <div className="input-file-block-rm" key={index}>
                         <div>
-                            <RemoveCircleOutline onClick={() => handleRmFile(item)}/>
+                            <RemoveCircleOutline onClick={() => handleRmFile(item)} />
 
                             <img
-                                src={URL.createObjectURL(item)}
+                                src={typeof item === 'string' ? item : URL.createObjectURL(item)}
                             />
                         </div>
 

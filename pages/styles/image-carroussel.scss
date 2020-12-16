@@ -1,0 +1,19 @@
+.image-carrousel-block {
+    height: 21vw;
+    margin: 8px 0;
+}
+
+.image-carrousel-block svg, .image-carrousel-block img {
+    width: 20vw;
+    height: 20vw;
+}
+
+@media (max-width: 600px) {
+    .image-carrousel-block {
+        height: 72vw;
+    }
+    .image-carrousel-block svg, .image-carrousel-block img {
+        width: 70vw;
+        height: 70vw;
+    }
+}

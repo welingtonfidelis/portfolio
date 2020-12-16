@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Delete, Edit } from '@material-ui/icons';
+import { Delete, Edit, Image } from '@material-ui/icons';
 import axios from 'axios';
 
 import Header from '../../components/Header';
@@ -15,6 +15,7 @@ import AlertConfirm from '../../components/AlertConfirm';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import Rating from '../../components/Rating';
+import ImageCarroussel from '../../components/ImageCarroussel';
 
 import utils from '../../services/utils';
 
@@ -27,13 +28,9 @@ export default function Login() {
     const [formData, setFormData] = useState({});
     const [projectEdit, setProjectEdit] = useState(false);
     const [images, setImages] = useState([]);
+    const [removeImages, setRemoveImages] = useState([]);
 
     const store = useSelector(state => state);
-    const category = [
-        { label: 'Front-End', value: 'front' },
-        { label: 'Back-End', value: 'back' },
-        { label: 'Mobile', value: 'mobile' }
-    ]
 
     useEffect(() => {
         getProjects();
@@ -47,7 +44,6 @@ export default function Login() {
 
             const { ok, projects } = data;
 
-            console.log('Projects', projects);
             if (ok) setProjects(projects);
         }
         catch (error) {
@@ -112,10 +108,13 @@ export default function Login() {
                     description: formData.description || '',
                     repository: formData.repository || '',
                     publishedIn: formData.publishedIn || '',
-                    images: []
+                    images: [],
+                    removeImages
                 }
                 for(const image of images) {
-                    body.images.push(await utils.fileToBase64(image));
+                    if(typeof image !== 'string') {
+                        body.images.push(await utils.fileToBase64(image));
+                    }
                 }
 
                 const { data } = formData._id
@@ -211,7 +210,7 @@ export default function Login() {
         setLoading(false);
     }
 
-    const handleDeleteSkillConfirm = (_id) => {
+    const handleDeleteProjectConfirm = (_id) => {
         setAlertStateConfirm({
             title: 'Deletar uma projeto',
             text: 'Deseja realmente deletar esta projeto?',
@@ -225,6 +224,7 @@ export default function Login() {
     const clearFormData = () => {
         setFormData({});
         setImages([]);
+        setRemoveImages([]);
         setProjectEdit(false);
     }
 
@@ -232,10 +232,9 @@ export default function Login() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleEditSkill = (item) => {
-        const cat = category.find(el => el.value === item.category);
-
-        setFormData({ ...item, category: cat });
+    const handleEditProject = (item) => {
+        setFormData({ ...item });
+        setImages(item.imagesUrl);
         setProjectEdit(true);
         handleOpenModal();
     }
@@ -299,7 +298,9 @@ export default function Login() {
                             name="image"
                             accept="image/x-png,image/gif,image/jpeg"
                             files={images}
-                            changeFiles={setImages}
+                            onChangeAddFiles={setImages}
+                            onChangeRmFiles={setRemoveImages}
+                            rmFiles={removeImages}
                         />
 
                         <div className="skill-modal-new-buttons">
@@ -329,30 +330,25 @@ export default function Login() {
                             : <div className="skills-content">
                                 {projects.map(item => {
                                     return (
-                                        <h3>projeto aqui</h3>
-                                        // <div className="skill-item" key={item._id}>
-                                        //     <strong>{item.name}</strong>
+                                        <div className="project-item" key={item._id}>
+                                            <strong>{item.name}</strong>
 
-                                        //     <Rating
-                                        //         size={40}
-                                        //         value={item.rating}
-                                        //         edit={false}
-                                        //     />
+                                            <ImageCarroussel images={item.imagesUrl}/>
 
-                                        //     <div className="skill-item-footer">
-                                        //         <div className="item-left">
-                                        //             <span>Última atualização</span>
-                                        //             <b>
-                                        //                 {utils.maskDate(new Date(item.updatedAt))}
-                                        //             </b>
-                                        //         </div>
+                                            <div className="skill-item-footer">
+                                                <div className="item-left">
+                                                    <span>Última atualização</span>
+                                                    <b>
+                                                        {utils.maskDate(new Date(item.updatedAt))}
+                                                    </b>
+                                                </div>
 
-                                        //         <div className="item-right">
-                                        //             <Delete onClick={() => handleDeleteSkillConfirm(item._id)} />
-                                        //             <Edit onClick={() => handleEditSkill(item)} />
-                                        //         </div>
-                                        //     </div>
-                                        // </div>
+                                                <div className="item-right">
+                                                    <Delete onClick={() => handleDeleteProjectConfirm(item._id)} />
+                                                    <Edit onClick={() => handleEditProject(item)} />
+                                                </div>
+                                            </div>
+                                        </div>
                                     )
                                 })}
                             </div>

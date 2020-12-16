@@ -3,6 +3,7 @@ import 'intl/locale-data/jsonp/pt-BR';
 
 import { Provider } from 'react-redux';
 
+import 'react-awesome-slider/dist/styles.css';
 import './styles/animation.scss';
 import './styles/modal.scss';
 import './styles/global.scss';
@@ -19,7 +20,8 @@ import './styles/dashboard.scss';
 import './styles/skills.scss';
 import './styles/select.scss';
 import './styles/input-file.scss';
-import 'react-awesome-slider/dist/styles.css';
+import './styles/image-carroussel.scss';
+import './styles/projects.scss';
 
 import store from '../store';
 
