@@ -4,10 +4,10 @@ const utils = require('../utils');
 export default async (req, res) => {
     try {
         const projectModel = await db.connectCollection('projects');
-        // const { order = 'createdAt', by = -1 } = req.query;
+        const { order = 'updatedAt', by = -1 } = req.query;
 
-        const projects = await projectModel.find().toArray()
-        // .sort({[order]: parseInt(by)}).toArray();
+        const projects = await projectModel.find()
+        .sort({[order]: parseInt(by)}).toArray();
 
         res.json({ ok: true, projects });
     }

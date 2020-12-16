@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Delete, Edit, Image } from '@material-ui/icons';
+import { Delete, Edit } from '@material-ui/icons';
 import axios from 'axios';
 
 import Header from '../../components/Header';
@@ -12,9 +12,7 @@ import Button from '../../components/ButtonPrimary';
 import ButtonSecondary from '../../components/ButtonSecondary';
 import Alert from '../../components/Alert';
 import AlertConfirm from '../../components/AlertConfirm';
-import Select from '../../components/Select';
 import Modal from '../../components/Modal';
-import Rating from '../../components/Rating';
 import ImageCarroussel from '../../components/ImageCarroussel';
 
 import utils from '../../services/utils';
@@ -165,12 +163,12 @@ export default function Login() {
         setLoading(false);
     }
 
-    const handleDeleteSkill = async (_id) => {
+    const handleDeleteProject = async (_id) => {
         setLoading(true);
 
         try {
             const { data } = await axios.delete(
-                '../api/skill/delete',
+                '../api/project/delete',
                 {
                     headers: { authorization: store.authorization },
                     params: { _id }
@@ -185,16 +183,14 @@ export default function Login() {
                 });
 
                 getProjects();
+                clearFormData();
 
                 setAlertState({
-                    text: 'seu projeto foi excluida com sucesso!',
+                    text: 'Seu projeto foi excluido com sucesso!',
                     severity: 'success',
                     open: true,
                     close: setAlertState
                 });
-
-                clearFormData();
-                getProjects();
             }
         }
         catch (error) {
@@ -212,11 +208,11 @@ export default function Login() {
 
     const handleDeleteProjectConfirm = (_id) => {
         setAlertStateConfirm({
-            title: 'Deletar uma projeto',
-            text: 'Deseja realmente deletar esta projeto?',
+            title: 'Deletar um projeto',
+            text: 'Deseja realmente deletar este projeto?',
             open: true,
             close: setAlertStateConfirm,
-            confirm: handleDeleteSkill,
+            confirm: handleDeleteProject,
             id: _id
         });
     }

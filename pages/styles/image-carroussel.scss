@@ -8,6 +8,12 @@
     height: 20vw;
 }
 
+@media (max-width: 900px) {
+    .image-carrousel-block {
+        height: 31vw;
+    }
+}
+
 @media (max-width: 600px) {
     .image-carrousel-block {
         height: 72vw;

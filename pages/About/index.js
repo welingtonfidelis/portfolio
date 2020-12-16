@@ -48,7 +48,7 @@ export default function About() {
     return (
         <>
             <Header />
-            <Menu page="about" />
+            <Menu page="about" loading={loading} />
             <content id="content-about">
                 <div id="about-card-left">
                     <img

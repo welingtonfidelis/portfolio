@@ -1,18 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GitHub, Language } from '@material-ui/icons';
 import AwesomeSlider from 'react-awesome-slider';
+import axios from 'axios'
 
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import Modal from '../../components/Modal';
 
-import data from '../../data/data.json';
-
 export default function About() {
-    const { repositories } = data;
-
     const [urlTmp, setUrlTmp] = useState([]);
     const [modalState, setModalState] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        getProjects();
+    }, []);
+
+    const getProjects = async () => {
+        setLoading(true);
+
+        try {
+            const { data } = await axios.get('../api/project/get');
+
+            const { ok, projects } = data;
+
+            if (ok) setProjects(projects);
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        setLoading(false);
+    }
 
     const showDetail = (url) => {
         setUrlTmp(url);
@@ -26,41 +46,38 @@ export default function About() {
     return (
         <>
             <Header />
-            <Menu page="portfolio" />
+            <Menu page="portfolio" loading={loading} />
 
             <div className="portfolio-separator"></div>
 
             <content id="content-portfolio">
                 {
-                    repositories.map((el, index) => {
+                    projects.map((item, index) => {
                         return (
                             <div key={index} className="card-repository">
-                                <strong>{el.name}</strong>
+                                <strong>{item.name}</strong>
                                 <img
-                                    src={el.image_url[0]}
-                                    alt={`${el.name}_image`}
-                                    onClick={() => showDetail(el.image_url)}
+                                    src={item.imagesUrl[0]}
+                                    alt={`${item.name}_image`}
+                                    onClick={() => showDetail(item.imagesUrl)}
                                 />
 
-                                <span>{el.description}</span>
+                                <span>{item.description}</span>
 
                                 <div className="icon-repository">
                                     <a
                                         title="Repositório no Github"
-                                        href={el.html_url}
+                                        href={item.repository}
                                         target="__blank"
                                     >
                                         <GitHub />
                                     </a>
 
                                     {
-                                        el.deploy
-                                            ?
-                                            <a title="Sistema publicado" href={el.deploy} target="__blank">
-                                                <Language />
-                                            </a>
-                                            :
-                                            null
+                                        item.publishedIn &&
+                                        <a title="Sistema publicado" href={item.publishedIn} target="__blank">
+                                            <Language />
+                                        </a>
                                     }
                                 </div>
                             </div>

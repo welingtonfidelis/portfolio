@@ -169,6 +169,7 @@ export default function Login() {
                 });
 
                 getSkills();
+                clearFormData();
 
                 setAlertState({
                     text: 'Sua habilidade foi excluida com sucesso!',
@@ -176,9 +177,6 @@ export default function Login() {
                     open: true,
                     close: setAlertState
                 });
-
-                clearFormData();
-                getSkills();
             }
         }
         catch (error) {

@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AccountCircle } from '@material-ui/icons';
 
-export default function Menu({ page }) {
+import Load from '../Load';
+
+export default function Menu({ page, loading }) {
     const [arrayColor, setArrayColor] = useState({});
 
     useEffect(() => {
@@ -43,6 +45,10 @@ export default function Menu({ page }) {
                     </Link>
                 </div>
             </ul>
+
+            <div className="menu-admin-load">
+                <Load loading={loading} />
+            </div>
         </nav>
     )
 }
