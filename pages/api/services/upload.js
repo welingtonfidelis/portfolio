@@ -2,10 +2,10 @@ const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const slugify = require('slugify');
 
-const bucketName = process.env.AWS_BUCKET_NAME;
-const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-const region = process.env.AWS_DEFAULT_REGION;
+const bucketName = process.env.PORTFOLIO_AWS_BUCKET_NAME;
+const accessKeyId = process.env.PORTFOLIO_AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.PORTFOLIO_AWS_SECRET_ACCESS_KEY;
+const region = process.env.PORTFOLIO_AWS_DEFAULT_REGION;
 
 const s3 = new AWS.S3({
     accessKeyId,
