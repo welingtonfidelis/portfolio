@@ -16,7 +16,7 @@ export default function Login() {
                 break;
 
             case 'project':
-                console.log(2);
+                router.push('/Projects');
                 break;
 
             default:

@@ -1,7 +1,8 @@
 import { ObjectID } from 'mongodb';
 
 const db = require('../../../database/connection');
-const authtentication = require('../../../services/authentication');
+const authtentication = require('../services/authentication');
+const utils = require('../utils');
 
 export default async (req, res) => {
     try {
@@ -20,9 +21,6 @@ export default async (req, res) => {
         res.json({ ok: true });
     }
     catch (error) {
-        const code = error.code || 500;
-        const message = error.message || 'Internal server error';
-
-        res.status(code).json({ ok: false, message });
+        utils.errorResponse(res, error);
     }
 }

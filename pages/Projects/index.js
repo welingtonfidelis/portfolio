@@ -5,51 +5,50 @@ import axios from 'axios';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+import TextArea from '../../components/TextArea';
+import InputFile from '../../components/InputFile';
 import Menu from '../../components/MenuAdmin';
 import Button from '../../components/ButtonPrimary';
 import ButtonSecondary from '../../components/ButtonSecondary';
 import Alert from '../../components/Alert';
 import AlertConfirm from '../../components/AlertConfirm';
-import Select from '../../components/Select';
 import Modal from '../../components/Modal';
-import Rating from '../../components/Rating';
+import ImageCarroussel from '../../components/ImageCarroussel';
 
 import utils from '../../services/utils';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
-    const [skills, setSkills] = useState([]);
+    const [projects, setProjects] = useState([]);
     const [alertState, setAlertState] = useState({});
     const [alertStateConfirm, setAlertStateConfirm] = useState({});
     const [modalState, setModalState] = useState({});
     const [formData, setFormData] = useState({});
-    const [skillEdit, setSkillEdit] = useState(false);
+    const [projectEdit, setProjectEdit] = useState(false);
+    const [images, setImages] = useState([]);
+    const [removeImages, setRemoveImages] = useState([]);
 
     const store = useSelector(state => state);
-    const category = [
-        { label: 'Front-End', value: 'front' },
-        { label: 'Back-End', value: 'back' },
-        { label: 'Mobile', value: 'mobile' }
-    ]
 
     useEffect(() => {
-        getSkills();
+        getProjects();
     }, []);
 
-    const getSkills = async () => {
+    const getProjects = async () => {
         setLoading(true);
 
         try {
-            const { data } = await axios.get('../api/skill/get');
+            const { data } = await axios.get('../api/project/get');
 
-            const { ok, skills } = data;
-            if (ok) setSkills(skills);
+            const { ok, projects } = data;
+
+            if (ok) setProjects(projects);
         }
         catch (error) {
             console.log(error);
 
             setAlertState({
-                text: 'Houve um problema ao trazer suas habilidades. Por favor, tente novamente.',
+                text: 'Houve um problema ao trazer seus projetos. Por favor, tente novamente.',
                 severity: 'error',
                 open: true,
                 close: setAlertState
@@ -77,10 +76,11 @@ export default function Login() {
 
     const validateInput = () => {
         let isValid = true, text = '';
-        if(!formData.category || formData.category === '') text = 'Escolha uma categoria para sua habilidade.';
-        else if(!formData.name || formData.name === '') text = 'Escolha um nome para sua habilidade.';
-        
-        if(text !== '') {
+        if (!formData.name || formData.name === '') text = 'Escolha um nome para seu projeto.';
+        else if (!formData.description || formData.description === '') text = 'Fale um pouco sobre seu projeto.';
+        else if (!images.length) text = 'Escolha ao menos uma imagem para seu projeto.';
+
+        if (text !== '') {
             isValid = false;
 
             setAlertState({
@@ -90,56 +90,70 @@ export default function Login() {
                 close: setAlertState
             });
         }
-        
+
         return isValid;
     }
 
-    const handleSaveSkill = async (e) => {
+    const handleSaveProject = async (e) => {
         e.preventDefault();
 
         setLoading(true);
 
         try {
-            if(validateInput()) {
+            if (validateInput()) {
                 const body = {
-                    category: (formData.category.value || formData.category) || category[0].value,
-                    rating: formData.rating || 0,
-                    name: formData.name || ''
-                };
-    
+                    name: formData.name || '',
+                    description: formData.description || '',
+                    repository: formData.repository || '',
+                    publishedIn: formData.publishedIn || '',
+                    images: [],
+                    removeImages
+                }
+                for(const image of images) {
+                    if(typeof image !== 'string') {
+                        body.images.push(await utils.fileToBase64(image));
+                    }
+                }
+
                 const { data } = formData._id
                     ? await axios.put(
-                        '../api/skill/update', body,
+                        '../api/project/update', body,
                         {
-                            headers: { authorization: store.authorization },
+                            headers: {
+                                authorization: store.authorization
+                            },
                             params: { _id: formData._id }
                         }
                     )
                     : await axios.post(
-                        '../api/skill/create', body,
-                        { headers: { authorization: store.authorization } }
+                        '../api/project/create', body,
+                        {
+                            headers: {
+                                authorization: store.authorization
+                            }
+                        }
                     )
-    
+
                 const { ok } = data;
                 if (ok) {
                     handleCloseModal();
-    
+
                     setAlertState({
-                        text: 'Sua habilidade foi salva com sucesso!',
+                        text: 'Seu projeto foi salvo com sucesso!',
                         severity: 'success',
                         open: true,
                         close: setAlertState
                     });
-    
+
                     clearFormData();
-                    getSkills();
+                    getProjects();
                 }
             }
         }
         catch (error) {
             console.log(error);
             setAlertState({
-                text: 'Houve um problema ao salvar sua habilidade. Por favor, tente novamente.',
+                text: 'Houve um problema ao salvar seu projeto. Por favor, tente novamente.',
                 severity: 'error',
                 open: true,
                 close: setAlertState
@@ -149,12 +163,12 @@ export default function Login() {
         setLoading(false);
     }
 
-    const handleDeleteSkill = async (_id) => {
+    const handleDeleteProject = async (_id) => {
         setLoading(true);
 
         try {
             const { data } = await axios.delete(
-                '../api/skill/delete',
+                '../api/project/delete',
                 {
                     headers: { authorization: store.authorization },
                     params: { _id }
@@ -168,11 +182,11 @@ export default function Login() {
                     open: false
                 });
 
-                getSkills();
+                getProjects();
                 clearFormData();
 
                 setAlertState({
-                    text: 'Sua habilidade foi excluida com sucesso!',
+                    text: 'Seu projeto foi excluido com sucesso!',
                     severity: 'success',
                     open: true,
                     close: setAlertState
@@ -182,7 +196,7 @@ export default function Login() {
         catch (error) {
             console.log(error);
             setAlertState({
-                text: 'Houve um problema ao deletar sua habilidade. Por favor, tente novamente.',
+                text: 'Houve um problema ao deletar seu projeto. Por favor, tente novamente.',
                 severity: 'error',
                 open: true,
                 close: setAlertState
@@ -192,31 +206,32 @@ export default function Login() {
         setLoading(false);
     }
 
-    const handleDeleteSkillConfirm = (_id) => {
+    const handleDeleteProjectConfirm = (_id) => {
         setAlertStateConfirm({
-            title: 'Deletar uma habilidade',
-            text: 'Deseja realmente deletar esta habilidade?',
+            title: 'Deletar um projeto',
+            text: 'Deseja realmente deletar este projeto?',
             open: true,
             close: setAlertStateConfirm,
-            confirm: handleDeleteSkill,
+            confirm: handleDeleteProject,
             id: _id
         });
     }
 
     const clearFormData = () => {
         setFormData({});
-        setSkillEdit(false);
+        setImages([]);
+        setRemoveImages([]);
+        setProjectEdit(false);
     }
 
     const handleInputChange = (name, value) => {
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleEditSkill = (item) => {
-        const cat = category.find(el => el.value === item.category);
-
-        setFormData({ ...item, category: cat });
-        setSkillEdit(true);
+    const handleEditProject = (item) => {
+        setFormData({ ...item });
+        setImages(item.imagesUrl);
+        setProjectEdit(true);
         handleOpenModal();
     }
 
@@ -235,37 +250,54 @@ export default function Login() {
                 <Modal state={modalState}>
                     <div className="skill-modal-new">
                         {
-                            skillEdit
-                                ? <h1>Editar habilidade</h1>
-                                : <h1>Nova habilidade</h1>
+                            projectEdit
+                                ? <h1>Editar projeto</h1>
+                                : <h1>Novo projeto</h1>
                         }
-
-                        <Select
-                            id="select-category"
-                            placeholder="Escolha uma categoria"
-                            label="Categoria"
-                            options={category}
-                            defaultValue={formData.category || ''}
-                            onChange={e => handleInputChange('category', e.value)}
-                        />
 
                         <Input
                             label="Nome"
                             name="name"
-                            required
+                            placeholder="Nome do seu projeto"
                             value={formData.name || ''}
                             onChange={e => handleInputChange('name', e.target.value)}
                             required
                         />
 
-                        <div className="skill-modal-new-rating">
-                            <span>Seu nível nesta habilidade</span>
-                            <Rating
-                                size={40}
-                                value={formData.rating || 0}
-                                onChange={e => handleInputChange('rating', e)}
-                            />
-                        </div>
+                        <Input
+                            label="Repositório"
+                            name="repository"
+                            placeholder="https://github.com/seuProjeto"
+                            value={formData.repository || ''}
+                            onChange={e => handleInputChange('repository', e.target.value)}
+                        />
+
+                        <Input
+                            label="Endereço da publicação"
+                            name="publishedIn"
+                            placeholder="www.seuProjetoPublicado.com.br"
+                            value={formData.publishedIn || ''}
+                            onChange={e => handleInputChange('publishedIn', e.target.value)}
+                        />
+
+                        <TextArea
+                            label="Descrição"
+                            name="description"
+                            placeholder="Descrição do seu projeto"
+                            value={formData.description || ''}
+                            onChange={e => handleInputChange('description', e.target.value)}
+                            required
+                        />
+
+                        <InputFile
+                            label="Imagens"
+                            name="image"
+                            accept="image/x-png,image/gif,image/jpeg"
+                            files={images}
+                            onChangeAddFiles={setImages}
+                            onChangeRmFiles={setRemoveImages}
+                            rmFiles={removeImages}
+                        />
 
                         <div className="skill-modal-new-buttons">
                             <div className="skill-modal-button" onClick={handleCloseModal}>
@@ -273,7 +305,7 @@ export default function Login() {
                             </div>
 
                             <div className="skill-modal-button">
-                                <Button label="Salvar" loading={loading} onClick={handleSaveSkill} />
+                                <Button label="Salvar" loading={loading} onClick={handleSaveProject} />
                             </div>
                         </div>
                     </div>
@@ -285,23 +317,19 @@ export default function Login() {
                     </div>
 
                     {
-                        !skills.length
+                        !projects.length
                             ? <div className="empty-skills-text">
                                 <strong>
-                                    Nenhuma habilidade encontrada. Por favor, cadastre algumas.
+                                    Nenhum projeto encontrado. Por favor, cadastre alguns.
                             </strong>
                             </div>
                             : <div className="skills-content">
-                                {skills.map(item => {
+                                {projects.map(item => {
                                     return (
-                                        <div className="skill-item" key={item._id}>
+                                        <div className="project-item" key={item._id}>
                                             <strong>{item.name}</strong>
 
-                                            <Rating
-                                                size={40}
-                                                value={item.rating}
-                                                edit={false}
-                                            />
+                                            <ImageCarroussel images={item.imagesUrl}/>
 
                                             <div className="skill-item-footer">
                                                 <div className="item-left">
@@ -312,8 +340,8 @@ export default function Login() {
                                                 </div>
 
                                                 <div className="item-right">
-                                                    <Delete onClick={() => handleDeleteSkillConfirm(item._id)} />
-                                                    <Edit onClick={() => handleEditSkill(item)} />
+                                                    <Delete onClick={() => handleDeleteProjectConfirm(item._id)} />
+                                                    <Edit onClick={() => handleEditProject(item)} />
                                                 </div>
                                             </div>
                                         </div>

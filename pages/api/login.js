@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt');
 const db = require('../../database/connection');
-const authtentication = require('../../services/authentication');
+const authtentication = require('./services/authentication');
+const utils = require('./utils');
 
 export default async (req, res) => {
     try {
+        console.log(bcrypt.hashSync('Evolucao1990', 10));
         const { user, password: passwordUser } = req.body;
 
         const userModel = await db.connectCollection('users');
@@ -27,28 +29,18 @@ export default async (req, res) => {
             foundUser = { _id: insertedId, name: defaultName, password: defaultPassword }
         }
 
-        if(!foundUser) createError(401, 'Invalid user or password');
+        if(!foundUser) utils.createError(401, 'Invalid user or password');
 
         const { _id: id, name, password } = foundUser;
         const isValid = bcrypt.compareSync(passwordUser, password);
 
-        if (!isValid) createError(401, 'Invalid user or password');
+        if (!isValid) utils.createError(401, 'Invalid user or password');
 
         const authorization = authtentication.createToken({ id, name });
         
         res.json({ ok: true, name, authorization });
     }
     catch (error) {
-        const code = error.code || 500;
-        const message = error.message || 'Internal server error';
-
-        res.status(code).json({ ok: false, message });
-    }
-}
-
-const createError = (code, message) => {
-    throw {
-        code,
-        message
+        utils.errorResponse(res, error);
     }
 }

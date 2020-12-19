@@ -1,0 +1,75 @@
+.input-file-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-file-block span:first-child {
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+.input-file-block content {
+    border: 1px solid #0094a8;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.input-file-block content input {
+    display: none;
+}
+
+.input-file-block-img-container {
+    border: 1px solid #27ff00;
+    border-radius: 4px;
+    padding: 2px;
+    height: 8rem;
+    width: 8rem;
+    margin: 0 2px;
+}
+
+.input-file-block-add svg {
+    @extend .input-file-block-img-container;
+
+    color: #27ff00;
+}
+
+.input-file-block-add:hover, .input-file-block-add svg:hover {
+    transition: .5s;
+    color: #27ff00 !important;
+    filter: brightness(.8);
+}
+
+.input-file-block-rm {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-file-block-rm svg{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #fff;
+}
+
+.input-file-block-rm svg:hover {
+    transition: .5s;
+    color: red !important;
+}
+
+.input-file-block-rm span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 7.8rem;
+}
+
+.input-file-block content img {
+    @extend .input-file-block-img-container;
+
+    border: 1px solid #1b242f;
+}
