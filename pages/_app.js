@@ -2,6 +2,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 
 import { Provider } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import 'react-awesome-slider/dist/styles.css';
 import './styles/animation.scss';
@@ -22,12 +23,18 @@ import './styles/select.scss';
 import './styles/input-file.scss';
 import './styles/image-carroussel.scss';
 import './styles/projects.scss';
+import './styles/chat.scss';
 
 import store from '../store';
+import Chat from '../components/Chat';
+import pagesWithoutChat from './enum/pagesWithoutChat';
 
 export default function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
   return (
     <Provider store={store}>
+      { !pagesWithoutChat.includes(router.pathname) && <Chat /> }
       <Component {...pageProps} />
     </Provider>
   )

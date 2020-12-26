@@ -14,7 +14,7 @@ import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import Rating from '../../components/Rating';
 
-import utils from '../../services/utils';
+import utils from '../../utils';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);

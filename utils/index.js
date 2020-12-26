@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 module.exports = {
   maskValue(value) {
     return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
@@ -5,6 +7,10 @@ module.exports = {
 
   maskDate(date) {
     return Intl.DateTimeFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(date);
+  },
+
+  maskTime(date = new Date()) {
+      return format(date, 'HH:mm:ss');
   },
 
   async fileToBase64(file) {

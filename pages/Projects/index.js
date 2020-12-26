@@ -15,7 +15,7 @@ import AlertConfirm from '../../components/AlertConfirm';
 import Modal from '../../components/Modal';
 import ImageCarroussel from '../../components/ImageCarroussel';
 
-import utils from '../../services/utils';
+import utils from '../../utils';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
