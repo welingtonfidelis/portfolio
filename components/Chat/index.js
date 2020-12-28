@@ -1,20 +1,56 @@
 import { Send, HighlightOff, Chat, KeyboardArrowDown } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { io } from 'socket.io-client';
+import { useState, useEffect, useRef } from 'react';
 
 import Input from '../../components/Input';
 import Button from '../../components/ButtonPrimary';
 
 import utils from '../../utils';
 
+let socket = null;
+
 export default function ChatComponent() {
     const [name, setName] = useState('teste');
     const [email, setEmail] = useState('teste@email.com');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [referenceNode, setReferenceNode] = useState();
+    const [scrollEnd, setScrollEnd] = useState(true);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const dispatch = useDispatch();
     const chat = useSelector(state => state.chat);
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        if(referenceNode && referenceNode !== undefined) {
+            return () => referenceNode.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [chat.messages]);
+
+    const handleScroll = (event) => {
+        var node = event.target;
+        const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
+        setScrollEnd(bottom);
+    }
+
+    const messagesContentRef = (node) => {
+        if (node) {
+            node.addEventListener('scroll', handleScroll);
+            setReferenceNode(node);
+        }
+    };
+
+    const scrollToBottom = () => {
+        if (chat.messages.length && scrollEnd) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }
 
     const showChat = () => {
         dispatch({
@@ -26,12 +62,18 @@ export default function ChatComponent() {
         e.preventDefault();
 
         try {
-            console.log(name, email);
-            dispatch({
-                type: 'UPDATE_CHAT_USER',
-                id: 111,
-                name,
-                email
+            socket = io(
+                apiUrl,
+                { query: { name, email, date: new Date().getTime() } }
+            );
+
+            socket.on("connect", () => {
+                dispatch({
+                    type: 'UPDATE_CHAT_USER',
+                    id: socket.id,
+                    name,
+                    email
+                });
             });
 
         } catch (error) {
@@ -39,8 +81,40 @@ export default function ChatComponent() {
         }
     }
 
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        const date = new Date().getTime();
+
+        if (socket) {
+            try {
+                socket.emit(
+                    'send-message', { text: message, date }
+                );
+
+                dispatch({
+                    type: 'ADD_CHAT_MESSAGE',
+                    message: {
+                        date,
+                        text: message,
+                        id: chat.id
+                    }
+                });
+
+                // dispatch({
+                //     type: 'RM_ALERT_NEW_MESSAGE',
+                //     user: receiver.socketId
+                // });
+                setMessage('');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
     const handleCloseChat = () => {
         try {
+            if (socket) socket.disconnect();
+
             setName('');
             setEmail('');
 
@@ -104,7 +178,7 @@ export default function ChatComponent() {
                             </form>
 
                             : <div className="messages-chat">
-                                <content>
+                                <content ref={messagesContentRef}>
                                     {
                                         chat.messages.map((item, index) => {
                                             const className = item.id === chat.id
@@ -121,9 +195,10 @@ export default function ChatComponent() {
                                             )
                                         })
                                     }
+                                    <div ref={messagesEndRef} />
                                 </content>
 
-                                <form>
+                                <form onSubmit={handleSendMessage}>
                                     <Input
                                         name="text-message"
                                         placeholder="Sua mensagem"
@@ -132,7 +207,12 @@ export default function ChatComponent() {
                                         required
                                     />
 
-                                    <div className="send-message-button"><Send /></div>
+                                    <div
+                                        className="send-message-button"
+                                        onClick={handleSendMessage}
+                                    >
+                                        <Send />
+                                    </div>
                                 </form>
                             </div>
                         }

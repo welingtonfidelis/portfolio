@@ -1,53 +1,5 @@
 import { createStore } from 'redux';
 
-const messages = [
-    {
-        id: 111,
-        text: 'Olá amigo',
-        date: 1608999388188
-    },
-    {
-        id: 111,
-        text: 'Gostei do seu trabalho',
-        date: 1608999388198
-    },
-    {
-        id: 111,
-        text: 'Bora conversar sobre vagas',
-        date: 1608999388288
-    },
-    {
-        id: 111,
-        text: 'Olá amigo',
-        date: 1608999388188
-    },
-    {
-        id: 111,
-        text: 'Gostei do seu trabalho',
-        date: 1608999388198
-    },
-    {
-        id: 111,
-        text: 'Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas',
-        date: 1608999388288
-    },
-    {
-        id: 111,
-        text: 'Olá amigo',
-        date: 1608999388188
-    },
-    {
-        id: 111,
-        text: 'Gostei do seu trabalho',
-        date: 1608999388198
-    },
-    {
-        id: 112,
-        text: 'Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas Bora conversar sobre vagas',
-        date: 1608999388288
-    },
-]
-
 const INITIAL_STATE = {
     name: '',
     authorization: '',
@@ -56,7 +8,7 @@ const INITIAL_STATE = {
         show: false,
         name: '',
         email: '',
-        messages
+        messages: []
     }
 }
 
@@ -97,6 +49,15 @@ function user(state = INITIAL_STATE, action) {
                     id: action.id,
                     name: action.name,
                     email: action.email
+                }
+            }
+
+        case 'ADD_CHAT_MESSAGE':
+            return {
+                ...state,
+                chat: {
+                    ...state.chat,
+                    messages: [...state.chat.messages, action.message]
                 }
             }
 
