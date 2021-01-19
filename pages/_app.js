@@ -22,12 +22,15 @@ import './styles/select.scss';
 import './styles/input-file.scss';
 import './styles/image-carroussel.scss';
 import './styles/projects.scss';
+import './styles/chat.scss';
 
 import store from '../store';
+import Chat from '../components/Chat';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
+      <Chat />
       <Component {...pageProps} />
     </Provider>
   )
