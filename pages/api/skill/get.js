@@ -8,6 +8,8 @@ export default async (req, res) => {
 
         const skills = await skillModel.find().sort({[order]: parseInt(by)}).toArray();
 
+        res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate');
+        
         res.json({ ok: true, skills });
     }
     catch (error) {
