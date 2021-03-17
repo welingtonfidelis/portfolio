@@ -3,12 +3,13 @@ const utils = require('./utils');
 
 export default async (req, res) => {
     try {
-        const { ip } = req.body;
+        const data = req.body;
+        const visitAt = new Date();
 
         const collection = (await db.connectMongo()).collection('visits');
     
         await collection.insertOne({
-            ip, visitAt: new Date()
+            ...data, visitAt
         });
     
         return res.status(201).json({ ok: true });
