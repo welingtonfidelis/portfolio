@@ -10,9 +10,11 @@ export default function Home() {
   }, []);
 
   const getIp = async () => {
-    const { data } = await axios.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=json');
+    const { data } = await axios.get(
+      `https://geolocation-db.com/json/${process.env.NEXT_GEOLOCATION_KEY}`
+    );
 
-    if(data) axios.post('../api/saveVisit', { ip: data.ip });
+    if(data) axios.post('../api/saveVisit', data);
   }
 
   return (
