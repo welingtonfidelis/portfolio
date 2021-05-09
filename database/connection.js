@@ -8,7 +8,6 @@ const methods = {
         if (cachedDb) return cachedDb;
 
         const uri = process.env.MONGODB_URI;
-        console.log('Cone', uri);
         const client = await MongoClient.connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
