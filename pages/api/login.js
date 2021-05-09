@@ -1,11 +1,10 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const db = require('../../database/connection');
 const authtentication = require('./services/authentication');
 const utils = require('./utils');
 
 export default async (req, res) => {
     try {
-        console.log(bcrypt.hashSync('Evolucao1990', 10));
         const { user, password: passwordUser } = req.body;
 
         const userModel = await db.connectCollection('users');
